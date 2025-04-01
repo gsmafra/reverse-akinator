@@ -1,16 +1,15 @@
-import os
 import random
 from functools import wraps
 
 import google.generativeai as genai
 from flask import Blueprint, render_template, jsonify, request
 
+from .config import config
 from .db_access import cache_answer, get_cached_answer
 
 blueprint = Blueprint('main', __name__)
 
-GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
-genai.configure(api_key=GEMINI_API_KEY)
+genai.configure(api_key=config.GEMINI_API_KEY)
 model = genai.GenerativeModel('gemini-1.5-flash')
 
 
