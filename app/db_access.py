@@ -1,7 +1,7 @@
 import firebase_admin
 from firebase_admin import credentials, firestore
 
-from .config import config
+from app.config import config
 
 
 def init_firebase():
@@ -16,16 +16,14 @@ db = init_firebase()
 
 def cache_answer(character, question, answer):
     doc_ref = db.collection("answers").document()
-    doc_ref.set({
-        "character": character,
-        "question": question,
-        "answer": answer
-    })
+    doc_ref.set({"character": character, "question": question, "answer": answer})
 
 
 def get_cached_answer(character, question):
     answers_ref = db.collection("answers")
-    query = answers_ref.where("character", "==", character).where("question", "==", question)
+    query = answers_ref.where("character", "==", character).where(
+        "question", "==", question
+    )
     results = query.get()
     if not len(results) > 0:
         return None

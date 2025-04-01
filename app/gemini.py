@@ -1,9 +1,9 @@
 import google.generativeai as genai
 
-from .config import config
+from app.config import config
 
 genai.configure(api_key=config.GEMINI_API_KEY)
-model = genai.GenerativeModel('gemini-1.5-flash')
+model = genai.GenerativeModel("gemini-1.5-flash")
 
 
 def _parse_gemini_response(response):
