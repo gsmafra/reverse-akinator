@@ -2,10 +2,10 @@ import os
 import random
 from functools import wraps
 
-import firebase_admin
 import google.generativeai as genai
-from firebase_admin import credentials, firestore
 from flask import Blueprint, render_template, jsonify, request
+
+from .db_access import cache_answer, get_cached_answer
 
 blueprint = Blueprint('main', __name__)
 
@@ -13,14 +13,6 @@ GEMINI_API_KEY = os.environ.get("GEMINI_API_KEY")
 genai.configure(api_key=GEMINI_API_KEY)
 model = genai.GenerativeModel('gemini-1.5-flash')
 
-def init_firebase():
-    firebase_key_path = os.environ.get("AKINATOR_FIREBASE_KEY_PATH")
-    firebase_cred = credentials.Certificate(firebase_key_path)
-    firebase_admin.initialize_app(firebase_cred)
-    return firestore.client()
-
-
-db = init_firebase()
 
 CHARACTERS = [
     "Pikachu",
@@ -36,24 +28,6 @@ CHARACTERS = [
 ]
 
 current_character = None
-
-
-def cache_answer(character, question, answer):
-    doc_ref = db.collection("answers").document()
-    doc_ref.set({
-        "character": character,
-        "question": question,
-        "answer": answer
-    })
-
-
-def get_cached_answer(character, question):
-    answers_ref = db.collection("answers")
-    query = answers_ref.where("character", "==", character).where("question", "==", question)
-    results = query.get()
-    if not len(results) > 0:
-        return None
-    return results[0].to_dict()["answer"]
 
 
 def handle_exceptions(f):
