@@ -1,31 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
-    resetCharacter(); // Call the reset function when the page loads
-});
-
-function resetCharacter() {
-    fetch('/reset', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            console.error('Error resetting character:', response.status);
-            // Optionally display a message to the user
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Reset successful:', data.message);
-        // Optionally display a confirmation message to the user
-    })
-    .catch(error => {
-        console.error('Error calling /reset:', error);
-        // Optionally display an error message to the user
-    });
-}
-
 function submitQuestion() {
     const questionInput = document.getElementById("question-input");
     const answerContainer = document.getElementById("answer-container");
@@ -71,12 +43,3 @@ function submitQuestion() {
         questionInput.value = ""; // Clear the input field
     });
 }
-
-document.getElementById('reveal-button').addEventListener('click', function() {
-    fetch('/reveal')
-        .then(response => response.json())
-        .then(data => {
-            document.getElementById('revealed-character').textContent = `The character is: ${data.character}`;
-        })
-        .catch(error => console.error('Error:', error));
-});
