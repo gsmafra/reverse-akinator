@@ -1,0 +1,36 @@
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+input[type="text"] {
+    width: 80%;
+    max-width: 400px;
+    box-sizing: border-box;
+}
+
+#answer-container {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    input[type="text"] {
+        width: 95%;
+    }
+    #answer-container {
+        padding: 12px 20px;
+    }
+}
+
+#revealed-character {
+    margin-top: 20px;
+}
