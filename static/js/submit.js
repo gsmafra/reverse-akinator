@@ -1,12 +1,18 @@
+const askButton = document.getElementById("ask-button");
+const questionInput = document.getElementById("question-input");
+const answerContainer = document.getElementById("answer-container");
+
 function submitQuestion() {
-    const questionInput = document.getElementById("question-input");
-    const answerContainer = document.getElementById("answer-container");
     const question = questionInput.value.trim();
 
     if (question === "") {
         answerContainer.textContent = "Please enter a question.";
         return;
     }
+
+    // Disable the button and show the loading spinner
+    askButton.disabled = true;
+    askButton.innerHTML = 'Asking... <span class="loading-spinner"></span>';
 
     // Construct the URL with the question as a query parameter
     const url = `/yes_or_no?question=${encodeURIComponent(question)}`;
@@ -40,6 +46,14 @@ function submitQuestion() {
         answerContainer.classList.add('error'); // Add error class for styling
     })
     .finally(() => {
+        // Re-enable the button and reset its text
+        askButton.disabled = false;
+        askButton.innerHTML = 'Ask!';
         questionInput.value = ""; // Clear the input field
     });
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const askButton = document.getElementById("ask-button"); // Re-declare if needed inside the listener
+    askButton.addEventListener('click', submitQuestion);
+});
