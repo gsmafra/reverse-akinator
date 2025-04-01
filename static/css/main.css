@@ -70,6 +70,7 @@ button:active {
     border-radius: 8px;
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
     text-align: center;
+    margin-bottom: 20px;
 }
 
 #answer-container.error {
@@ -96,4 +97,19 @@ button:active {
         font-size: 18px;
         padding: 12px 20px;
     }
+}
+
+#reveal-button {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#revealed-character {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 20px;
 }

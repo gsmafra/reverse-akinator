@@ -70,3 +70,8 @@ def yes_or_no():
     key = "answer" if isinstance(answer, bool) else "error"
     print(answer)
     return jsonify({key: answer})
+
+
+@blueprint.route('/reveal', methods=['GET'])
+def reveal_character():
+    return jsonify({'character': CURRENT_CHARACTER})
