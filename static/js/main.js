@@ -53,8 +53,9 @@ function submitQuestion() {
         return response.json(); // Assuming your backend returns JSON
     })
     .then(data => {
-        if (data && data.answer) {
-            answerContainer.textContent = `Answer: ${data.answer}`;
+        if (data && data.answer !== null && data.answer !== undefined) {
+            const answerText = data.answer ? 'Yes' : 'No';
+            answerContainer.textContent = `Answer: ${answerText}`;
             answerContainer.classList.remove('error'); // Remove error class if present
         } else {
             answerContainer.textContent = "Error: Invalid response from server.";
