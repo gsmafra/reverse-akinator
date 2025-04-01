@@ -6,6 +6,22 @@ from flask import Blueprint, render_template, jsonify
 blueprint = Blueprint('main', __name__)
 
 
+CHARACTERS = [
+    "Pikachu",
+    "Mario",
+    "Harry Potter",
+    "Wonder Woman",
+    "Spider-Man",
+    "Mickey Mouse",
+    "Luke Skywalker",
+    "Hermione Granger",
+    "Batman",
+    "SpongeBob SquarePants",
+]
+
+current_character = None
+
+
 def handle_exceptions(f):
     @wraps(f)
     def wrapper(*args, **kwargs):
@@ -22,6 +38,14 @@ def handle_exceptions(f):
 @blueprint.route("/")
 def index():
     return render_template("index.html")
+
+
+@blueprint.route('/reset', methods=['GET'])
+def reset_character():
+    global current_character
+    current_character = random.choice(CHARACTERS)
+    print(f"New character selected: {current_character}")  # For debugging
+    return jsonify({"message": "Character has been reset."})
 
 
 @blueprint.route('/yes_or_no', methods=['GET'])
