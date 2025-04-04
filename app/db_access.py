@@ -28,3 +28,14 @@ def get_cached_answer(character, question):
     if not len(results) > 0:
         return None
     return results[0].to_dict()["answer"]
+
+
+def get_character(device_id):
+    doc_ref = db.collection("devices").document(device_id)
+    doc = doc_ref.get()
+    return doc.to_dict()["character"]
+
+
+def set_character(device_id, character):
+    doc_ref = db.collection("devices").document(device_id)
+    doc_ref.set({"character": character})

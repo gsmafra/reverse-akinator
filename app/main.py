@@ -3,7 +3,7 @@ from functools import wraps
 
 from flask import Blueprint, render_template, jsonify, request
 
-from app.db_access import cache_answer, get_cached_answer
+from app.db_access import cache_answer, get_cached_answer, get_character, set_character
 from app.gemini import get_gemini_answer
 
 blueprint = Blueprint("main", __name__)
@@ -21,8 +21,6 @@ CHARACTERS = [
     "Batman",
     "SpongeBob SquarePants",
 ]
-
-CURRENT_CHARACTER = None
 
 
 def handle_exceptions(f):
@@ -45,11 +43,10 @@ def index():
 
 @blueprint.route("/reset", methods=["GET"])
 def reset_character():
-    # to-do: persist character in db
-    # pylint: disable=W0603
-    global CURRENT_CHARACTER
-    CURRENT_CHARACTER = random.choice(CHARACTERS)
-    print(f"New character selected: {CURRENT_CHARACTER}")  # For debugging
+    current_character = random.choice(CHARACTERS)
+    print(f"New character selected: {current_character}")  # For debugging
+    device_id = request.remote_addr
+    set_character(device_id, current_character)
     return jsonify({"message": "Character has been reset."})
 
 
@@ -58,15 +55,16 @@ def yes_or_no():
     question = request.args.get("question")
     if question is None:
         return jsonify({"error": "Missing required parameter 'question'"}), 400
-    prompt = f"Answer the following question in yes or no format about {CURRENT_CHARACTER}: {question}"
+    current_character = get_character(request.remote_addr)
+    prompt = f"Answer the following question in yes or no format about {current_character}: {question}"
 
-    cached_answer = get_cached_answer(CURRENT_CHARACTER, question)
+    cached_answer = get_cached_answer(current_character, question)
     if cached_answer is not None:
         print(cached_answer)
         return jsonify({"answer": cached_answer})
 
     answer = get_gemini_answer(prompt)
-    cache_answer(CURRENT_CHARACTER, question, answer)
+    cache_answer(current_character, question, answer)
     key = "answer" if isinstance(answer, bool) else "error"
     print(answer)
     return jsonify({key: answer})
@@ -74,4 +72,5 @@ def yes_or_no():
 
 @blueprint.route('/reveal', methods=['GET'])
 def reveal_character():
-    return jsonify({'character': CURRENT_CHARACTER})
+    current_character = get_character(request.remote_addr)
+    return jsonify({'character': current_character})
