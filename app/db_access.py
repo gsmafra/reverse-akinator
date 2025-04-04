@@ -1,5 +1,6 @@
 import firebase_admin
 from firebase_admin import credentials, firestore
+from google.cloud.firestore import FieldFilter
 
 from app.config import config
 
@@ -21,8 +22,8 @@ def cache_answer(character, question, answer):
 
 def get_cached_answer(character, question):
     answers_ref = db.collection("answers")
-    query = answers_ref.where("character", "==", character).where(
-        "question", "==", question
+    query = answers_ref.where(filter=FieldFilter("character", "==", character)).where(
+        filter=FieldFilter("question", "==", question)
     )
     results = query.get()
     if not len(results) > 0:

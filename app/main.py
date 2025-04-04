@@ -3,7 +3,13 @@ from functools import wraps
 
 from flask import Blueprint, render_template, jsonify, request
 
-from app.db_access import cache_answer, get_cached_answer, get_character, set_character, update_session_answer
+from app.db_access import (
+    cache_answer,
+    get_cached_answer,
+    get_character,
+    set_character,
+    update_session_answer,
+)
 from app.gemini import get_gemini_answer
 
 blueprint = Blueprint("main", __name__)
@@ -70,7 +76,7 @@ def ask():
     return jsonify({key: answer, "session_answers": session_answers})
 
 
-@blueprint.route('/reveal', methods=['GET'])
+@blueprint.route("/reveal", methods=["GET"])
 def reveal_character():
     current_character = get_character(request.remote_addr)
-    return jsonify({'character': current_character})
+    return jsonify({"character": current_character})
