@@ -3,6 +3,7 @@ from functools import wraps
 
 from flask import Blueprint, render_template, jsonify, request
 
+from app.characters import CHARACTERS
 from app.db_access import (
     cache_answer,
     get_cached_answer,
@@ -13,20 +14,6 @@ from app.db_access import (
 from app.gemini import get_gemini_answer
 
 blueprint = Blueprint("main", __name__)
-
-
-CHARACTERS = [
-    "Pikachu",
-    "Mario",
-    "Harry Potter",
-    "Wonder Woman",
-    "Spider-Man",
-    "Mickey Mouse",
-    "Luke Skywalker",
-    "Hermione Granger",
-    "Batman",
-    "SpongeBob SquarePants",
-]
 
 
 def handle_exceptions(f):
