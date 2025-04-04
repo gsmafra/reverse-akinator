@@ -3,7 +3,7 @@ from functools import wraps
 
 from flask import Blueprint, render_template, jsonify, request
 
-from app.db_access import cache_answer, get_cached_answer, get_character, set_character
+from app.db_access import cache_answer, get_cached_answer, get_character, set_character, save_session_answer
 from app.gemini import get_gemini_answer
 
 blueprint = Blueprint("main", __name__)
@@ -55,7 +55,8 @@ def yes_or_no():
     question = request.args.get("question")
     if question is None:
         return jsonify({"error": "Missing required parameter 'question'"}), 400
-    current_character = get_character(request.remote_addr)
+    device_id = request.remote_addr
+    current_character = get_character(device_id)
     prompt = f"Answer the following question in yes or no format about {current_character}: {question}"
 
     cached_answer = get_cached_answer(current_character, question)
@@ -65,6 +66,7 @@ def yes_or_no():
 
     answer = get_gemini_answer(prompt)
     cache_answer(current_character, question, answer)
+    save_session_answer(device_id, question, answer)
     key = "answer" if isinstance(answer, bool) else "error"
     print(answer)
     return jsonify({key: answer})

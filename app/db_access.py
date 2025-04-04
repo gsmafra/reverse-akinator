@@ -39,3 +39,12 @@ def get_character(device_id):
 def set_character(device_id, character):
     doc_ref = db.collection("devices").document(device_id)
     doc_ref.set({"character": character})
+
+
+def save_session_answer(device_id, question, answer):
+    doc_ref = db.collection("devices").document(device_id)
+    doc_data = doc_ref.get().to_dict()
+    if "session_answers" not in doc_data:
+        doc_data["session_answers"] = []
+    doc_data["session_answers"].append({"question": question, "answer": answer})
+    doc_ref.set(doc_data)
