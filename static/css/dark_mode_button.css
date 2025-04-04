@@ -1,0 +1,18 @@
+#dark-mode-toggle {
+    position: fixed; /* Fixed position relative to viewport */
+    top: 10px; /* Adjust top spacing as needed */
+    left: 10px; /* Adjust left spacing as needed */
+    background-color: #333; /* Dark background */
+    color: #eee; /* Light text/symbol color */
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+}
+  
+/* Optional hover effect */
+#dark-mode-toggle:hover {
+    background-color: #555;
+}
