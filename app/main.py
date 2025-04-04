@@ -3,7 +3,7 @@ from functools import wraps
 
 from flask import Blueprint, render_template, jsonify, request
 
-from app.characters import CHARACTERS
+from app.resources.resources import CHARACTERS
 from app.db_access import (
     cache_answer,
     get_cached_answer,
