@@ -34,3 +34,32 @@ input[type="text"] {
 #revealed-character {
     margin-top: 20px;
 }
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100vh;
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-left: 1px solid #ccc;
+  }
+  
+  #session-history-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  #session-history-list li {
+    margin-bottom: 10px;
+  }
+  
+  #session-history-list li .question {
+    font-weight: bold;
+  }
+  
+  #session-history-list li .answer {
+    color: #666;
+  }

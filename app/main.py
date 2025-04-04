@@ -3,7 +3,7 @@ from functools import wraps
 
 from flask import Blueprint, render_template, jsonify, request
 
-from app.db_access import cache_answer, get_cached_answer, get_character, set_character, save_session_answer
+from app.db_access import cache_answer, get_cached_answer, get_character, set_character, update_session_answer
 from app.gemini import get_gemini_answer
 
 blueprint = Blueprint("main", __name__)
@@ -50,8 +50,8 @@ def reset_character():
     return jsonify({"message": "Character has been reset."})
 
 
-@blueprint.route("/yes_or_no", methods=["GET"])
-def yes_or_no():
+@blueprint.route("/ask", methods=["GET"])
+def ask():
     question = request.args.get("question")
     if question is None:
         return jsonify({"error": "Missing required parameter 'question'"}), 400
@@ -59,17 +59,15 @@ def yes_or_no():
     current_character = get_character(device_id)
     prompt = f"Answer the following question in yes or no format about {current_character}: {question}"
 
-    cached_answer = get_cached_answer(current_character, question)
-    if cached_answer is not None:
-        print(cached_answer)
-        return jsonify({"answer": cached_answer})
+    answer = get_cached_answer(current_character, question)
+    if answer is None:
+        answer = get_gemini_answer(prompt)
+        cache_answer(current_character, question, answer)
 
-    answer = get_gemini_answer(prompt)
-    cache_answer(current_character, question, answer)
-    save_session_answer(device_id, question, answer)
+    session_answers = update_session_answer(device_id, question, answer)
     key = "answer" if isinstance(answer, bool) else "error"
     print(answer)
-    return jsonify({key: answer})
+    return jsonify({key: answer, "session_answers": session_answers})
 
 
 @blueprint.route('/reveal', methods=['GET'])

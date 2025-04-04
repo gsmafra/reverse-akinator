@@ -15,25 +15,25 @@ function submitQuestion() {
     askButton.innerHTML = 'Asking... <span class="loading-spinner"></span>';
 
     // Construct the URL with the question as a query parameter
-    const url = `/yes_or_no?question=${encodeURIComponent(question)}`;
+    const url = `/ask?question=${encodeURIComponent(question)}`;
 
     fetch(url, {
         method: 'GET',
         headers: {
-            'Content-Type': 'application/json' // You might not need this for a simple GET
+            'Content-Type': 'application/json'
         },
-        // No body is needed for a GET request
     })
     .then(response => {
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        return response.json(); // Assuming your backend returns JSON
+        return response.json();
     })
     .then(data => {
         if (data && data.answer !== null && data.answer !== undefined) {
             const answerText = data.answer ? 'Yes' : 'No';
             answerContainer.textContent = `Answer: ${answerText}`;
+            updateSessionHistoryList(data.session_answers);
             answerContainer.classList.remove('error'); // Remove error class if present
         } else {
             answerContainer.textContent = "Error: Invalid response from server.";
