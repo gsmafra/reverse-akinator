@@ -3,7 +3,7 @@ from functools import wraps
 
 from flask import Blueprint, render_template, jsonify, request
 
-from app.resources.resources import CHARACTERS
+from app.resources.resources import CHARACTERS, CHARACTER_IMAGE_URLS
 from app.db_access import (
     cache_answer,
     get_cached_answer,
@@ -66,4 +66,9 @@ def ask():
 @blueprint.route("/reveal", methods=["GET"])
 def reveal_character():
     current_character = get_character(request.remote_addr)
-    return jsonify({"character": current_character})
+    return jsonify(
+        {
+            "character": current_character,
+            "image_url": CHARACTER_IMAGE_URLS[current_character],
+        }
+    )
