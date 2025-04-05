@@ -18,7 +18,7 @@ body {
     color: #e0e0e0;
 }
 
-h1 {
+#main-title {
     color: #007bff;
     margin-bottom: 30px;
     text-align: center;
@@ -103,4 +103,12 @@ button:active {
         font-size: 18px;
         padding: 12px 20px;
     }
+}
+
+.character-revealed #question-input,
+.character-revealed #ask-button,
+.character-revealed #reveal-button,
+.character-revealed #answer-container,
+.character-revealed #main-title {
+    display: none;
 }

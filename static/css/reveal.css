@@ -12,3 +12,7 @@
     font-weight: bold;
     margin-top: 20px;
 }
+
+.character-revealed #reveal-button {
+    display: none;
+}

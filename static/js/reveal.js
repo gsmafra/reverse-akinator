@@ -2,6 +2,7 @@ document.getElementById('reveal-button').addEventListener('click', function() {
     fetch('/reveal')
         .then(response => response.json())
         .then(data => {
+            document.body.classList.add('character-revealed');
             document.getElementById('revealed-character').textContent = `The character is: ${data.character}`;
 
             // Create an image element
