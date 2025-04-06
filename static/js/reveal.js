@@ -22,3 +22,7 @@ document.getElementById('reveal-button').addEventListener('click', function() {
         })
         .catch(error => console.error('Error:', error));
 });
+
+document.getElementById('reset-button').addEventListener('click', function() {
+    window.location.reload();
+});
