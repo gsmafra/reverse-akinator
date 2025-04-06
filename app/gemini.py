@@ -25,7 +25,7 @@ def _parse_gemini_response(response):
     answer = first_part.text.strip()  # Remove potential whitespace
 
     if answer.lower() not in ["yes", "no"]:
-        return f"Invalid answer format: {answer}"
+        return f"Invalid answer format: '{answer}'"
 
     return answer.lower() == "yes"
 
