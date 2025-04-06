@@ -57,3 +57,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const askButton = document.getElementById("ask-button"); // Re-declare if needed inside the listener
     askButton.addEventListener('click', submitQuestion);
 });
+
+questionInput.addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        askButton.click();
+    }
+});
