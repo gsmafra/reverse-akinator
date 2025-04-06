@@ -7,3 +7,6 @@ disable=C0114,C0115,C0116
 [FORMAT]
 # Set maximum allowed line length to 120 characters
 max-line-length=120
+
+[MASTER]
+init-hook='import sys; sys.path.append(".")'

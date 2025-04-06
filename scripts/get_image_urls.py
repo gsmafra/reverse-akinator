@@ -42,9 +42,8 @@ def main():
         if character in url_dict:
             continue
         url = search_for_image_in_google(character)
-        print(url)
         url_dict[character] = url
-        with open("app/resources/image_urls.json", "w") as f:
+        with open("app/resources/image_urls.json", "w", encoding="utf-8") as f:
             json.dump(url_dict, f, indent=4)
 
 
