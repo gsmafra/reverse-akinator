@@ -28,7 +28,6 @@ def search_for_image_in_google(query):
         "q": query,
         "num": 1,
         "safe": "active",
-        "fileType": "jpg",
         "imgSize": "medium",
     }
 
@@ -44,7 +43,7 @@ def main():
         url = search_for_image_in_google(character)
         url_dict[character] = url
         with open("app/resources/image_urls.json", "w", encoding="utf-8") as f:
-            json.dump(url_dict, f, indent=4)
+            json.dump(url_dict, f, indent=4, sort_keys=True)
 
 
 if __name__ == "__main__":
