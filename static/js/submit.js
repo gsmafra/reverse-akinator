@@ -12,7 +12,7 @@ function submitQuestion() {
 
     // Disable the button and show the loading spinner
     askButton.disabled = true;
-    askButton.innerHTML = 'Asking... <span class="loading-spinner"></span>';
+    askButton.innerHTML = '<span class="loading-spinner"></span>';
 
     // Construct the URL with the question as a query parameter
     const url = `/ask?question=${encodeURIComponent(question)}`;
