@@ -18,6 +18,7 @@
 
 #session-history-list li {
     margin-bottom: 10px;
+    position: relative;
 }
 
 #session-history-list li .question {
@@ -26,4 +27,23 @@
 
 #session-history-list li .answer {
     color: #666;
+}
+
+#session-history-list li .thumbs-down-button {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #2c2c2c;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+#session-history-list li .thumbs-down-button:hover {
+    background-color: #aaa;
+}
+
+.thumbs-down-button.clicked {
+    display: block !important;
 }

@@ -27,6 +27,10 @@
     display: none;
 }
 
-.character-revealed #reset-button {
+#session-history-list li .thumbs-down-button {
+    display: none;
+}
+
+.character-revealed #session-history-list li:hover .thumbs-down-button {
     display: block;
 }
