@@ -31,7 +31,7 @@ function submitQuestion() {
     })
     .then(data => {
         if (data && data.answer !== null && data.answer !== undefined) {
-            const answerText = data.answer ? 'Yes' : 'No';
+            const answerText = data.answer === 'yes' ? 'Yes' : data.answer === 'no' ? 'No' : 'Ambiguous';
             answerContainer.textContent = `Answer: ${answerText}`;
             updateSessionHistoryList(data.session_answers);
             answerContainer.classList.remove('error'); // Remove error class if present

@@ -1,6 +1,7 @@
 import google.generativeai as genai
 
 from app.config import config
+from app.resources.resources import PROMPT_TEMPLATE
 
 genai.configure(api_key=config.GEMINI_API_KEY)
 model = genai.GenerativeModel("gemini-1.5-flash")
@@ -24,17 +25,18 @@ def _parse_gemini_response(response):
 
     answer = first_part.text.strip()  # Remove potential whitespace
 
-    if answer.lower() not in ["yes", "no"]:
+    if answer.lower() not in ["yes", "no", "ambiguous"]:
         return f"Invalid answer format: '{answer}'"
 
-    return answer.lower() == "yes"
+    return answer.lower()
 
 
-def get_gemini_answer(prompt):
+def get_gemini_answer(character, question):
+    prompt = PROMPT_TEMPLATE.replace("{{character}}", character).replace("{{question}}", question)
     response = model.generate_content(
         contents=prompt,
         generation_config=genai.types.GenerationConfig(
-            max_output_tokens=2,
+            max_output_tokens=1,
             temperature=0,
             top_p=1,
             top_k=1,

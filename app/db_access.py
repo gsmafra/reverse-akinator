@@ -28,7 +28,12 @@ def get_cached_answer(character, question):
     results = query.get()
     if not len(results) > 0:
         return None
-    return results[0].to_dict()["answer"]
+
+    answer = results[0].to_dict()["answer"]
+    if isinstance(answer, bool):
+        answer = "yes" if answer else "no"
+
+    return answer
 
 
 def get_character(device_id):

@@ -50,16 +50,14 @@ def ask():
         return jsonify({"error": "Missing required parameter 'question'"}), 400
     device_id = request.remote_addr
     current_character = get_character(device_id)
-    prompt = f"Answer the following question in yes or no format about {current_character}: {question}"
 
     answer = get_cached_answer(current_character, question)
     if answer is None:
-        answer = get_gemini_answer(prompt)
+        answer = get_gemini_answer(current_character, question)
         cache_answer(current_character, question, answer)
 
     session_answers = update_session_answer(device_id, question, answer)
-    key = "answer" if isinstance(answer, bool) else "error"
-    print(answer)
+    key = "answer" if answer in ["yes", "no", "ambiguous"] else "error"
     return jsonify({key: answer, "session_answers": session_answers})
 
 

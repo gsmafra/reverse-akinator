@@ -1,0 +1,58 @@
+You are a knowledge assistant evaluating whether a statement applies to a fictional or real character.
+
+Inputs:
+- character: {{character}}
+- question: {{question}}
+
+Instructions:
+Your task is to answer "yes", "no", or "ambiguous" based on the information provided.
+
+Answer:
+- "yes" if the statement clearly applies to the character.
+- "no" if the statement clearly does not apply.
+- "ambiguous" if:
+  - The statement is unclear, nonsensical, or not a coherent trait (e.g., "ajsfslk").
+  - The answer depends heavily on context or time (e.g., "Does Goku have a tail?" depends on the story arc).
+  - The information is not canonical, widely known, or is contradictory across sources.
+  - The trait applies only in specific portrayals or adaptations (e.g., "Is Saruman a cartoon?" — he is sometimes, but not primarily).
+
+Respond with only one of the following strings: "yes", "no", or "ambiguous". Note that the statement can be in another language.
+
+Examples:
+
+character: Goku
+question: Strong
+→ yes
+
+character: Goku
+question: Forte
+→ yes
+
+character: Goku  
+question: Was born after 1980
+→ ambiguous
+
+character: Shrek
+question: Green
+→ yes
+
+character: Sherlock Holmes
+question: Uses a lightsaber
+→ no
+
+character: Saruman
+question: Cartoon
+→ ambiguous
+
+character: Pikachu
+question: Is a person
+→ no
+
+character: Darth Vader
+question: Father
+→ yes
+
+Now answer for:
+
+character: {{character}}
+question: {{question}}
