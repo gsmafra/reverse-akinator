@@ -42,6 +42,7 @@
 
 .thumbs-down-button:hover {
     background-color: #aaa;
+    transform: translateY(-50%);
 }
 
 .thumbs-down-button.clicked {
