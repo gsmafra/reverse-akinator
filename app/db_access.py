@@ -55,3 +55,16 @@ def update_session_answer(device_id, question, answer):
     doc_data["session_answers"].append({"question": question, "answer": answer})
     doc_ref.set(doc_data)
     return doc_data["session_answers"]
+
+
+def add_thumbs_down(question, character, answer):
+    answers_ref = db.collection("answers")
+    query = (
+        answers_ref.select(field_paths=["question", "character", "answer"])
+        .where(filter=FieldFilter("question", "==", question))
+        .where(filter=FieldFilter("character", "==", character))
+        .where(filter=FieldFilter("answer", "==", answer))
+    )
+    results = query.get()
+    for doc in results:
+        doc.reference.set({"thumbs_down": True}, merge=True)

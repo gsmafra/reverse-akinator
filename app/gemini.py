@@ -32,7 +32,9 @@ def _parse_gemini_response(response):
 
 
 def get_gemini_answer(character, question):
-    prompt = PROMPT_TEMPLATE.replace("{{character}}", character).replace("{{question}}", question)
+    prompt = PROMPT_TEMPLATE.replace("{{character}}", character).replace(
+        "{{question}}", question
+    )
     response = model.generate_content(
         contents=prompt,
         generation_config=genai.types.GenerationConfig(

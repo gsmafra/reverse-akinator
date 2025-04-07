@@ -34,3 +34,7 @@
 .character-revealed #session-history-list li:hover .thumbs-down-button {
     display: block;
 }
+
+.character-revealed #reset-button {
+    display: block;
+}

@@ -5,6 +5,7 @@ from flask import Blueprint, render_template, jsonify, request
 
 from app.resources.resources import CHARACTERS, CHARACTER_IMAGE_URLS
 from app.db_access import (
+    add_thumbs_down,
     cache_answer,
     get_cached_answer,
     get_character,
@@ -70,3 +71,16 @@ def reveal_character():
             "image_url": CHARACTER_IMAGE_URLS[current_character],
         }
     )
+
+
+@blueprint.route("/thumbs_down", methods=["POST"])
+def thumbs_down():
+    data = request.get_json()
+    question = data["question"]
+    character = data["character"]
+    answer = data["answer"]
+
+    # Call the DB function to add a thumbs down flag
+    add_thumbs_down(question, character, answer)
+
+    return jsonify({"message": "Thumbs down added successfully"})

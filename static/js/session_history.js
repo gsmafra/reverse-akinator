@@ -29,11 +29,28 @@ function updateSessionHistoryList(sessionAnswers) {
 
 function handleThumbsDownButtonClick(thumbsDownButton, answer) {
   thumbsDownButton.addEventListener("click", () => {
+      const question = answer.question;
+      const characterText = document.getElementById('revealed-character').textContent;
+      const character = characterText.replace('The character is: ', '');
+      const answerText = answer.answer;
+
+      fetch('/thumbs_down', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+              question: question,
+              character: character,
+              answer: answerText
+          })
+      })
+      .then(response => response.json())
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
+
       thumbsDownButton.classList.add("clicked");
       thumbsDownButton.style.pointerEvents = "none";
       thumbsDownButton.disabled = true;
-      // Mock a call to a POST thumbs down
-      console.log(`Thumbs down clicked for question: ${answer.question}`);
-      // TODO: Implement actual POST request
   });
 }
