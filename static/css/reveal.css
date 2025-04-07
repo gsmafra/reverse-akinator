@@ -1,5 +1,5 @@
 #reveal-button {
-    background-color: #4CAF50;
+    background-color: #00690577;
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -18,7 +18,7 @@
 }
 
 #reset-button {
-    background-color: #4CAF50;
+    background-color: #00690577;
     color: #fff;
     padding: 10px 20px;
     border: none;
@@ -27,14 +27,10 @@
     display: none;
 }
 
-#session-history-list li .thumbs-down-button {
-    display: none;
-}
-
-.character-revealed #session-history-list li:hover .thumbs-down-button {
-    display: block;
-}
-
 .character-revealed #reset-button {
     display: block;
+}
+
+.character-revealed #reveal-button {
+    display: none;
 }

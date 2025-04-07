@@ -29,7 +29,7 @@
     color: #666;
 }
 
-#session-history-list li .thumbs-down-button {
+.thumbs-down-button {
     position: absolute;
     right: 10px;
     top: 50%;
@@ -40,10 +40,18 @@
     cursor: pointer;
 }
 
-#session-history-list li .thumbs-down-button:hover {
+.thumbs-down-button:hover {
     background-color: #aaa;
 }
 
 .thumbs-down-button.clicked {
     display: block !important;
+}
+
+.thumbs-down-button {
+    display: none;
+}
+
+.character-revealed #session-history-list li:hover .thumbs-down-button {
+    display: block;
 }
