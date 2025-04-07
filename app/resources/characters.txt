@@ -20,7 +20,9 @@ Chewbacca
 Cristiano Ronaldo
 Daenerys Targaryen
 Darth Vader
+Donald Duck
 Donald Trump
+Dory
 Eddard Stark
 Elon Musk
 Elvis Presley
@@ -38,6 +40,7 @@ Hermione Granger
 Homer Simpson
 Indiana Jones
 Isaac Newton
+Jackie Chan
 Jeff Bezos
 Jesus Christ
 Jim Carrey
@@ -78,6 +81,7 @@ RuPaul
 Saruman
 Sauron
 Scooby Doo
+Shrek
 Simba
 Simone Biles
 Snoopy
@@ -85,6 +89,8 @@ Spider-Man
 SpongeBob SquarePants
 Squidward
 Steve Jobs
+Stitch
+Sylvester Stallone
 Taylor Swift
 The Joker
 Thor
@@ -94,8 +100,10 @@ Totoro
 Tyrion Lannister
 Vegeta
 Vito Corleone
+Wall-E
 Winnie-the-Pooh
 Wolfgang Amadeus Mozart
 Wonder Woman
 Woody
 Woody Woodpecker
+Yoda
