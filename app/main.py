@@ -84,3 +84,8 @@ def thumbs_down():
     add_thumbs_down(question, character, answer)
 
     return jsonify({"message": "Thumbs down added successfully"})
+
+
+@blueprint.route('/rectify')
+def rectify():
+    return render_template('rectify.html')
