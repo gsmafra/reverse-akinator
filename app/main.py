@@ -88,22 +88,22 @@ def thumbs_down():
     return jsonify({"message": "Thumbs down added successfully"})
 
 
-@blueprint.route('/rectify')
+@blueprint.route("/rectify")
 def rectify():
-    return render_template('rectify.html')
+    return render_template("rectify.html")
 
 
-@blueprint.route('/answers_to_rectify')
+@blueprint.route("/answers_to_rectify")
 def answers_to_rectify():
     get_thumbs_down_answers()
     return jsonify(get_thumbs_down_answers())
 
 
-@blueprint.route('/rectify_answer', methods=['POST'])
+@blueprint.route("/rectify_answer", methods=["POST"])
 def rectify_answer():
     data = request.get_json()
-    character = data['character']
-    question = data['question']
-    answer = data['rectified_answer']
+    character = data["character"]
+    question = data["question"]
+    answer = data["rectified_answer"]
     update_answer(character, question, answer, thumbs_down=False)
-    return jsonify({'message': 'Answer rectified successfully'})
+    return jsonify({"message": "Answer rectified successfully"})
