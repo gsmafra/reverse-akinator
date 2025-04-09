@@ -21,7 +21,8 @@ function updateSessionHistoryList(sessionAnswers) {
       listItem.appendChild(answerSpan);
       listItem.appendChild(thumbsDownButton);
 
-      sessionHistoryList.appendChild(listItem);
+      // Prepend the new listItem to the beginning of the list
+      sessionHistoryList.prepend(listItem);
 
       handleThumbsDownButtonClick(thumbsDownButton, answer);
   });
