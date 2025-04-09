@@ -9,6 +9,7 @@ from app.db_access import (
     cache_answer,
     get_cached_answer,
     get_character,
+    get_thumbs_down_answers,
     set_character,
     update_session_answer,
 )
@@ -89,3 +90,9 @@ def thumbs_down():
 @blueprint.route('/rectify')
 def rectify():
     return render_template('rectify.html')
+
+
+@blueprint.route('/answers_to_rectify')
+def answers_to_rectify():
+    get_thumbs_down_answers()
+    return jsonify(get_thumbs_down_answers())

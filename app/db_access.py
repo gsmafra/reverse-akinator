@@ -68,3 +68,10 @@ def add_thumbs_down(question, character, answer):
     results = query.get()
     for doc in results:
         doc.reference.set({"thumbs_down": True}, merge=True)
+
+
+def get_thumbs_down_answers():
+    answers_ref = db.collection("answers")
+    query = answers_ref.where(filter=FieldFilter("thumbs_down", "==", True))
+    results = query.get()
+    return [doc.to_dict() for doc in results]

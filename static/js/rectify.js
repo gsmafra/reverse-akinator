@@ -1,50 +1,61 @@
-// Mock data
-const items = [
-    { character: 'Character 1', question: 'Question 1', answer: 'yes' },
-    { character: 'Character 2', question: 'Question 2', answer: 'no' },
-    { character: 'Character 3', question: 'Question 3', answer: 'ambiguous' },
-];
-
-const answers = ['yes', 'no', 'ambiguous'];
-
 const tableBody = document.getElementById('table-body');
+const answers = ['yes', 'no', 'ambiguous']; // These are the options for rectification
 
-items.forEach((item, index) => {
-    const row = tableBody.insertRow();
+async function populateTable() {
+    try {
+        const response = await fetch('/answers_to_rectify');
+        if (!response.ok) {
+            console.error(`Failed to fetch data: ${response.status}`);
+            // Optionally display an error message to the user
+            return;
+        }
+        const items = await response.json();
 
-    const characterCell = row.insertCell();
-    characterCell.textContent = item.character;
+        // Clear any existing rows in the table
+        tableBody.innerHTML = '';
 
-    const questionCell = row.insertCell();
-    questionCell.textContent = item.question;
+        items.forEach((item, index) => {
+            const row = tableBody.insertRow();
 
-    const answerCell = row.insertCell();
-    answerCell.textContent = item.answer;
+            const characterCell = row.insertCell();
+            characterCell.textContent = item.character;
 
-    const rectifiedAnswerCell = row.insertCell();
-    const select = document.createElement('select');
-    select.id = `rectified-answer-${index + 1}`;
-    const defaultOption = document.createElement('option');
-    defaultOption.value = "";
-    defaultOption.textContent = "Select Answer";
-    select.appendChild(defaultOption);
-    answers.forEach(answer => {
-        const option = document.createElement('option');
-        option.value = answer;
-        option.textContent = answer;
-        select.appendChild(option);
-    });
-    rectifiedAnswerCell.appendChild(select);
+            const questionCell = row.insertCell();
+            questionCell.textContent = item.question;
 
-    const submitCell = row.insertCell();
-    const submitButton = document.createElement('button');
-    submitButton.id = `submit-${index + 1}`;
-    submitButton.textContent = 'Submit';
-    submitButton.addEventListener('click', (e) => {
-        const btnIndex = e.target.id.split('-')[1];
-        const selectedAnswer = document.getElementById(`rectified-answer-${btnIndex}`).value;
-        console.log(`Submitting rectified answer for item ${btnIndex}: ${selectedAnswer}`);
-        // Make API call to submit rectified answer (in a real application)
-    });
-    submitCell.appendChild(submitButton);
-});
+            const answerCell = row.insertCell();
+            answerCell.textContent = item.answer;
+
+            const rectifiedAnswerCell = row.insertCell();
+            const select = document.createElement('select');
+            select.id = `rectified-answer-${index + 1}`;
+            const defaultOption = document.createElement('option');
+            defaultOption.value = "";
+            defaultOption.textContent = "Select Answer";
+            select.appendChild(defaultOption);
+            answers.forEach(answer => {
+                const option = document.createElement('option');
+                option.value = answer;
+                option.textContent = answer;
+                select.appendChild(option);
+            });
+            rectifiedAnswerCell.appendChild(select);
+
+            // --- Submit Button Mocked Out ---
+            const submitCell = row.insertCell();
+            const submitButton = document.createElement('button');
+            submitButton.id = `submit-${index + 1}`;
+            submitButton.textContent = 'Submit';
+            // We are intentionally NOT adding an event listener to the submit button
+            submitCell.appendChild(submitButton);
+            // --- End of Mocked Out Submit Button ---
+        });
+
+    } catch (error) {
+        console.error("Error fetching data:", error);
+        // Optionally display an error message to the user
+    }
+}
+
+// Call populateTable when the page loads to fetch and display the initial data
+populateTable();
