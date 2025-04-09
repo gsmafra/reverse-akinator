@@ -75,3 +75,18 @@ def get_thumbs_down_answers():
     query = answers_ref.where(filter=FieldFilter("thumbs_down", "==", True))
     results = query.get()
     return [doc.to_dict() for doc in results]
+
+
+def update_answer(character, question, answer, thumbs_down):
+    answers_ref = db.collection("answers")
+    query = (
+        answers_ref
+        .where(filter=FieldFilter("character", "==", character))
+        .where(filter=FieldFilter("question", "==", question))
+    )
+    results = query.get()
+    for doc in results:
+        doc.reference.update({
+            "answer": answer,
+            "thumbs_down": thumbs_down,
+        })

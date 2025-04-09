@@ -11,6 +11,7 @@ from app.db_access import (
     get_character,
     get_thumbs_down_answers,
     set_character,
+    update_answer,
     update_session_answer,
 )
 from app.gemini import get_gemini_answer
@@ -96,3 +97,13 @@ def rectify():
 def answers_to_rectify():
     get_thumbs_down_answers()
     return jsonify(get_thumbs_down_answers())
+
+
+@blueprint.route('/rectify_answer', methods=['POST'])
+def rectify_answer():
+    data = request.get_json()
+    character = data['character']
+    question = data['question']
+    answer = data['rectified_answer']
+    update_answer(character, question, answer, thumbs_down=False)
+    return jsonify({'message': 'Answer rectified successfully'})
