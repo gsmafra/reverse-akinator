@@ -1,11 +1,11 @@
 // Mock data
 const items = [
-    { character: 'Character 1', question: 'Question 1', answer: 'Answer 1' },
-    { character: 'Character 2', question: 'Question 2', answer: 'Answer 2' },
-    { character: 'Character 3', question: 'Question 3', answer: 'Answer 3' },
+    { character: 'Character 1', question: 'Question 1', answer: 'yes' },
+    { character: 'Character 2', question: 'Question 2', answer: 'no' },
+    { character: 'Character 3', question: 'Question 3', answer: 'ambiguous' },
 ];
 
-const answers = ['Answer 1', 'Answer 2', 'Answer 3', 'Answer 4', 'Answer 5'];
+const answers = ['yes', 'no', 'ambiguous'];
 
 const tableBody = document.getElementById('table-body');
 
@@ -26,7 +26,7 @@ items.forEach((item, index) => {
     select.id = `rectified-answer-${index + 1}`;
     const defaultOption = document.createElement('option');
     defaultOption.value = "";
-    defaultOption.textContent = "Select Rectified Answer";
+    defaultOption.textContent = "Select Answer";
     select.appendChild(defaultOption);
     answers.forEach(answer => {
         const option = document.createElement('option');
