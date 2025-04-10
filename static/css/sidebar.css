@@ -58,7 +58,6 @@
     display: block;
 }
 
-/* Media query for mobile devices */
 @media (max-width: 768px) {
     .sidebar {
         position: fixed; /* Keep it fixed at the bottom */
@@ -67,10 +66,12 @@
         left: 0; /* Align to the left */
         right: auto; /* Reset right */
         width: 100%; /* Full width */
-        /* Set a fixed maximum height for the sidebar on mobile */
-        max-height: 500px; /* Adjust this value as needed */
+        /* Set the height to roughly half of the viewport height */
+        height: 50vh; /* 50% of the viewport height */
+        max-height: none; /* Remove the fixed maximum height */
         border-left: none;
         border-top: 1px solid #ccc;
         padding: 10px; /* Adjust padding for mobile */
+        overflow-y: auto; /* Add scroll if content overflows */
     }
 }
