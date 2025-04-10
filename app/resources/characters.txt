@@ -1,9 +1,11 @@
 50 Cent
+Aladdin
 Abraham Lincoln
 Adolf Hitler
 Al Pacino
 Albert Einstein
 Alexander the Great
+Amy Winehouse
 Angelina Jolie
 Arnold Schwarzenegger
 Augustus
@@ -11,12 +13,17 @@ Barack Obama
 Batman
 Beyonce
 Bill Gates
+Bob Marley
 Brad Pitt
 Britney Spears
 Bugs Bunny
+Bulbasaur
 Buzz Lightyear
 Cersei Lannister
+Charlemagne
 Charlie Chaplin
+Charizard
+Charmander
 Chewbacca
 Cleopatra
 Cristiano Ronaldo
@@ -29,8 +36,10 @@ Eddard Stark
 Elon Musk
 Elvis Presley
 Eminem
+Faustão
 Frank Sinatra
 Fred Flintstone
+Frieza
 Frodo Baggins
 Gandalf
 Garfield
@@ -43,19 +52,28 @@ Homer Simpson
 Indiana Jones
 Isaac Newton
 Jackie Chan
+Jair Bolsonaro
 James Bond
 Jeff Bezos
 Jesus Christ
 Jim Carrey
+Joffrey Baratheon
+Joe Biden
+John Lennon
 Jon Snow
 Joseph Stalin
 Julius Caesar
 Justin Bieber
+Kamala Harris
+Karl Marx
 Kate Winslet
+Kurt Cobain
 Lady Gaga
+Lara Croft
 Leonardo DiCaprio
 Lionel Messi
 Loki
+Lola Bunny
 Lord Voldemort
 Ludwig van Beethoven
 Luke Skywalker
@@ -65,49 +83,73 @@ Mao Zedong
 Marilyn Monroe
 Mario
 Mark Zuckerberg
+Mewtwo
 Michael Corleone
 Michael Jackson
+Michael Jordan
 Mickey Mouse
+Mr. Krabs
+Mystery (Erik von Markovik)
 Napoleon Bonaparte
 Naruto Uzumaki
 Nemo (the fish)
 Neymar
 Oprah Winfrey
+Pac-Man
 Patrick Star
 Paul Atreides
 Pelé
+Pepe the Frog
 Pikachu
+Plato
+Pope Benedict XVI
+Pope Francis
+Pope John Paul II
 Popeye
 Prophet Muhammad
 Queen Elizabeth II
+Rapunzel
 Rihanna
 Robert Oppenheimer
+Romário
 Ronaldinho
+Ronaldo (R9)
 RuPaul
 Saruman
+Satan
 Sauron
 Scooby Doo
 Sherlock Holmes
 Shrek
+Silvio Santos
 Simba
 Simone Biles
+Snoop Dogg
 Snoopy
+Snow White
+Sonic the Hedgehog
 Spider-Man
 SpongeBob SquarePants
 Squidward
+Squirtle
 Steve Jobs
 Stitch
+Sun Tzu
 Superman
 Sylvester Stallone
 Taylor Swift
 The Joker
 Thor
+Tiger Woods
 Tinky-Winky
 Tom Cruise
 Totoro
 Tyrion Lannister
+Usain Bolt
 Vegeta
 Vito Corleone
+Vladimir Putin
+Volodymyr Zelenskyy
 Wall-E
 Winnie-the-Pooh
 Wolfgang Amadeus Mozart
@@ -115,3 +157,4 @@ Wonder Woman
 Woody
 Woody Woodpecker
 Yoda
+Zé Pequeno
