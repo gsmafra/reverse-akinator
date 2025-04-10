@@ -9,6 +9,7 @@ Amy Winehouse
 Angelina Jolie
 Arnold Schwarzenegger
 Augustus
+Babe (the pig)
 Barack Obama
 Batman
 Beyonce
@@ -19,6 +20,7 @@ Britney Spears
 Bugs Bunny
 Bulbasaur
 Buzz Lightyear
+Captain America
 Cersei Lannister
 Charlemagne
 Charlie Chaplin
@@ -28,11 +30,13 @@ Chewbacca
 Cleopatra
 Cristiano Ronaldo
 Daenerys Targaryen
+Daffy Duck
 Darth Vader
 Donald Duck
 Donald Trump
 Dory
 Eddard Stark
+Eddie Murphy
 Elon Musk
 Elvis Presley
 Eminem
@@ -43,14 +47,18 @@ Frieza
 Frodo Baggins
 Gandalf
 Garfield
+George Floyd
 George Washington
+Gohan
 Goku
+Harambe
 Harry Potter
 Hello Kitty
 Hermione Granger
 Homer Simpson
 Indiana Jones
 Isaac Newton
+Jack Sparrow
 Jackie Chan
 Jair Bolsonaro
 James Bond
@@ -151,6 +159,7 @@ Vito Corleone
 Vladimir Putin
 Volodymyr Zelenskyy
 Wall-E
+Will Smith
 Winnie-the-Pooh
 Wolfgang Amadeus Mozart
 Wonder Woman
@@ -158,3 +167,4 @@ Woody
 Woody Woodpecker
 Yoda
 Zé Pequeno
+Zendaya
