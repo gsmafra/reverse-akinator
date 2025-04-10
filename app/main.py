@@ -19,19 +19,6 @@ from app.gemini import get_gemini_answer
 blueprint = Blueprint("main", __name__)
 
 
-def handle_exceptions(f):
-    @wraps(f)
-    def wrapper(*args, **kwargs):
-        try:
-            return f(*args, **kwargs)
-        # pylint: disable=W0718
-        except Exception as e:
-            print(e)
-            return jsonify({"error": str(e)}), 500
-
-    return wrapper
-
-
 @blueprint.route("/")
 def index():
     return render_template("index.html")
@@ -46,9 +33,18 @@ def reset_character():
     return jsonify({"message": "Character has been reset."})
 
 
+def normalize_question(question):
+    question = question.strip()
+    question = question[0].upper() + question[1:]
+    while question.endswith("?"):
+        question = question[:-1]
+    return question
+
+
 @blueprint.route("/ask", methods=["GET"])
 def ask():
     question = request.args.get("question")
+    question = normalize_question(question)
     if question is None:
         return jsonify({"error": "Missing required parameter 'question'"}), 400
     device_id = request.remote_addr
@@ -82,7 +78,6 @@ def thumbs_down():
     character = data["character"]
     answer = data["answer"]
 
-    # Call the DB function to add a thumbs down flag
     add_thumbs_down(question, character, answer)
 
     return jsonify({"message": "Thumbs down added successfully"})
