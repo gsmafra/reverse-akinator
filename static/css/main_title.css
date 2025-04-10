@@ -1,0 +1,16 @@
+#main-title {
+    color: #00690577;
+    margin-bottom: 30px;
+    text-align: center;
+    transition: margin-bottom 0.3s ease; /* Add transition for smooth movement */
+}
+
+.character-revealed #main-title {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    #main-title {
+        display: none;
+    }
+}

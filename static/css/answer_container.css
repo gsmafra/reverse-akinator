@@ -1,0 +1,29 @@
+#answer-container {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+    padding: 15px 25px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #00690577;
+    background-color: #e9ecef;
+    border-radius: 8px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    transition: margin-top 0.3s ease, margin-bottom 0.3s ease; /* Add transition */
+}
+
+#answer-container.error {
+    color: #dc3545; /* Error color */
+    background-color: #f8d7da;
+}
+
+.character-revealed #answer-container {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    #answer-container {
+        margin-top: 6px;
+        margin-bottom: 10px;
+    }
+}

@@ -16,3 +16,9 @@
 #dark-mode-toggle:hover {
     background-color: #555;
 }
+
+@media (max-width: 768px) {
+    #dark-mode-toggle {
+        display: none;
+    }
+}

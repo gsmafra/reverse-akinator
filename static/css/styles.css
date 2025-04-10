@@ -18,13 +18,6 @@ body {
     color: #e0e0e0;
 }
 
-#main-title {
-    color: #00690577;
-    margin-bottom: 30px;
-    text-align: center;
-    transition: margin-bottom 0.3s ease; /* Add transition for smooth movement */
-}
-
 button {
     padding: 12px 25px;
     font-size: 18px;
@@ -49,48 +42,40 @@ button:active {
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-#answer-container {
-    margin-top: 30px;
-    margin-bottom: 20px;
-    text-align: center;
-    padding: 15px 25px;
-    font-size: 22px;
-    font-weight: bold;
-    color: #00690577;
-    background-color: #e9ecef;
-    border-radius: 8px;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-    transition: margin-top 0.3s ease, margin-bottom 0.3s ease; /* Add transition */
-}
-
-#answer-container.error {
-    color: #dc3545; /* Error color */
-    background-color: #f8d7da;
-}
-
-.character-revealed #ask-button,
-.character-revealed #answer-container,
-.character-revealed #main-title {
+.character-revealed #ask-button {
     display: none;
 }
 
-/* Media query for mobile devices */
 @media (max-width: 768px) {
     body {
         padding-bottom: 320px; /* Adjust based on your sidebar's max-height + some extra space */
         justify-content: flex-start; /* Align items to the top */
     }
 
-    #main-title {
-        margin-bottom: 10px; /* Reduce margin for mobile */
+    .input-button-container {
+        display: flex;
+        width: 100%; /* Make the container take full width */
+        margin-bottom: 10px; /* Adjust margin as needed */
+        align-items: stretch; /* Make items the same height */
     }
 
-    button {
-        margin-bottom: 10px; /* Reduce margin for mobile */
+    input[type="text"] {
+        flex-grow: 1;
+        padding: 12px;
+        font-size: 18px;
+        border: 1px solid #ccc;
+        border-radius: 8px 0 0 8px; /* Rounded left corners */
+        height: 45px;
+        padding-bottom: 6px;
     }
 
-    #answer-container {
-        margin-top: 15px; /* Reduce margin for mobile */
-        margin-bottom: 10px; /* Reduce margin for mobile */
+    #ask-button {
+        margin-left: 10px;
+        margin-bottom: 0;
+        border-radius: 8px 8px 8px 8px;
+        padding-top: 12px;
+        padding-bottom: 6px;
+        height: 45px;
     }
+
 }
