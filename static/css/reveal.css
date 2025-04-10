@@ -34,3 +34,14 @@
 .character-revealed #reveal-button {
     display: none;
 }
+
+/* Media query for mobile devices */
+@media (max-width: 768px) {
+    .revealed-image {
+        max-height: 150px;
+        height: auto; /* Maintain aspect ratio */
+    }
+    .character-revealed {
+        font-size: 12px;
+    }
+}

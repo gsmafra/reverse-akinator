@@ -3,7 +3,7 @@ document.getElementById('reveal-button').addEventListener('click', function() {
         .then(response => response.json())
         .then(data => {
             document.body.classList.add('character-revealed');
-            document.getElementById('revealed-character').textContent = `The character is: ${data.character}`;
+            document.getElementById('revealed-character').textContent = `${data.character}`;
 
             // Create an image element
             const characterImage = document.createElement('img');
