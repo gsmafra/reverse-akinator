@@ -1,0 +1,63 @@
+.input-button-container {
+    display: flex;
+    align-items: stretch; /* Make items the same height */
+    margin-bottom: 10px; /* Adjust margin as needed */
+}
+
+#question-input {
+    flex-grow: 1; /* Allow input to take up remaining space */
+    padding: 12px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 8px 0 0 8px; /* Rounded left corners */
+    margin-right: 10px; /* Add space between input and button */
+    height: 45px; /* Set a consistent height */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+#ask-button {
+    background-color: #00690577;
+    color: white;
+    border: none;
+    border-radius: 0 8px 8px 0; /* Rounded right corners */
+    cursor: pointer;
+    font-size: 18px;
+    padding: 10px 20px; /* Adjust padding as needed */
+    height: 45px; /* Set a consistent height */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+#ask-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 3px 3px 7px rgba(0, 0, 0, 0.2);
+}
+
+#ask-button:active {
+    transform: translateY(0);
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.character-revealed #ask-button {
+    display: none;
+}
+
+/* Media query for mobile devices (adjust as needed) */
+@media (max-width: 768px) {
+    .input-button-container {
+        flex-direction: row; /* Ensure they are in a row */
+        width: 100%; /* Take full width on mobile */
+    }
+
+    #question-input {
+        border-radius: 8px 0 0 8px;
+        margin-right: 10px;
+    }
+
+    #ask-button {
+        margin-left: 0; /* Remove default mobile margin */
+        border-radius: 0 8px 8px 0;
+        padding-top: 10px; /* Adjust padding for consistency */
+        padding-bottom: 10px;
+    }
+}

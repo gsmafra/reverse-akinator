@@ -42,21 +42,10 @@ button:active {
     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
 }
 
-.character-revealed #ask-button {
-    display: none;
-}
-
 @media (max-width: 768px) {
     body {
         padding-bottom: 320px; /* Adjust based on your sidebar's max-height + some extra space */
         justify-content: flex-start; /* Align items to the top */
-    }
-
-    .input-button-container {
-        display: flex;
-        width: 100%; /* Make the container take full width */
-        margin-bottom: 10px; /* Adjust margin as needed */
-        align-items: stretch; /* Make items the same height */
     }
 
     input[type="text"] {
@@ -67,15 +56,6 @@ button:active {
         border-radius: 8px 0 0 8px; /* Rounded left corners */
         height: 45px;
         padding-bottom: 6px;
-    }
-
-    #ask-button {
-        margin-left: 10px;
-        margin-bottom: 0;
-        border-radius: 8px 8px 8px 8px;
-        padding-top: 12px;
-        padding-bottom: 6px;
-        height: 45px;
     }
 
 }
