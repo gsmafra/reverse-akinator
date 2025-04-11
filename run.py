@@ -1,9 +1,11 @@
 from flask import Flask, render_template
-from app.main import blueprint
+from app.main_routes import main_bp
+from app.admin_routes import admin_bp
 from app.scheduler import init_scheduler
 
 app = Flask(__name__)
-app.register_blueprint(blueprint)
+app.register_blueprint(main_bp)
+app.register_blueprint(admin_bp)
 app.config.from_object("app.config.Config")
 
 

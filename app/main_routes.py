@@ -1,41 +1,19 @@
 import random
-from functools import wraps
 
 from flask import Blueprint, render_template, jsonify, request
 
 from app.resources.resources import CHARACTERS, CHARACTER_IMAGE_URLS
 from app.db_access import (
-    add_thumbs_down,
-    cache_answer,
-    get_cached_answer,
     get_character,
-    get_thumbs_down_answers,
     set_character,
-    update_answer,
+    get_cached_answer,
+    cache_answer,
     update_session_answer,
+    add_thumbs_down,
 )
 from app.gemini import get_gemini_answer
 
-blueprint = Blueprint("main", __name__)
-
-
-@blueprint.route("/")
-def index():
-    return render_template("index.html")
-
-
-@blueprint.route("/ping")
-def ping():
-    return jsonify({"message": "pong"})
-
-
-@blueprint.route("/reset", methods=["GET"])
-def reset_character():
-    current_character = random.choice(CHARACTERS)
-    print(f"New character selected: {current_character}")  # For debugging
-    device_id = request.remote_addr
-    set_character(device_id, current_character)
-    return jsonify({"message": "Character has been reset."})
+main_bp = Blueprint("main", __name__)
 
 
 def normalize_question(question):
@@ -46,7 +24,21 @@ def normalize_question(question):
     return question
 
 
-@blueprint.route("/ask", methods=["GET"])
+@main_bp.route("/")
+def index():
+    return render_template("index.html")
+
+
+@main_bp.route("/reset", methods=["GET"])
+def reset_character():
+    current_character = random.choice(CHARACTERS)
+    print(f"New character selected: {current_character}")  # For debugging
+    device_id = request.remote_addr
+    set_character(device_id, current_character)
+    return jsonify({"message": "Character has been reset."})
+
+
+@main_bp.route("/ask", methods=["GET"])
 def ask():
     question = request.args.get("question")
     question = normalize_question(question)
@@ -65,7 +57,7 @@ def ask():
     return jsonify({key: answer, "session_answers": session_answers})
 
 
-@blueprint.route("/reveal", methods=["GET"])
+@main_bp.route("/reveal", methods=["GET"])
 def reveal_character():
     current_character = get_character(request.remote_addr)
     return jsonify(
@@ -76,7 +68,7 @@ def reveal_character():
     )
 
 
-@blueprint.route("/thumbs_down", methods=["POST"])
+@main_bp.route("/thumbs_down", methods=["POST"])
 def thumbs_down():
     data = request.get_json()
     question = data["question"]
@@ -86,24 +78,3 @@ def thumbs_down():
     add_thumbs_down(question, character, answer)
 
     return jsonify({"message": "Thumbs down added successfully"})
-
-
-@blueprint.route("/rectify")
-def rectify():
-    return render_template("rectify.html")
-
-
-@blueprint.route("/answers_to_rectify")
-def answers_to_rectify():
-    get_thumbs_down_answers()
-    return jsonify(get_thumbs_down_answers())
-
-
-@blueprint.route("/rectify_answer", methods=["POST"])
-def rectify_answer():
-    data = request.get_json()
-    character = data["character"]
-    question = data["question"]
-    answer = data["rectified_answer"]
-    update_answer(character, question, answer, thumbs_down=False)
-    return jsonify({"message": "Answer rectified successfully"})
