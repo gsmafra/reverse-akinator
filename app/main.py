@@ -24,6 +24,11 @@ def index():
     return render_template("index.html")
 
 
+@blueprint.route("/ping")
+def ping():
+    return jsonify({"message": "pong"})
+
+
 @blueprint.route("/reset", methods=["GET"])
 def reset_character():
     current_character = random.choice(CHARACTERS)

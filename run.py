@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from app.main import blueprint
+from app.scheduler import init_scheduler
 
 app = Flask(__name__)
 app.register_blueprint(blueprint)
@@ -12,4 +13,5 @@ def page_not_found(e):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+    init_scheduler()
+    app.run(host="0.0.0.0", debug=False)
