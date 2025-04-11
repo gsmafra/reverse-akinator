@@ -1,27 +1,27 @@
+import { getDeviceId } from './device_id.js';
+
 document.addEventListener('DOMContentLoaded', function() {
-    resetCharacter(); // Call the reset function when the page loads
+    resetCharacter();
 });
 
 function resetCharacter() {
     fetch('/reset', {
-        method: 'GET',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify({ device_id: getDeviceId() })
     })
     .then(response => {
         if (!response.ok) {
             console.error('Error resetting character:', response.status);
-            // Optionally display a message to the user
         }
         return response.json();
     })
     .then(data => {
         console.log('Reset successful:', data.message);
-        // Optionally display a confirmation message to the user
     })
     .catch(error => {
         console.error('Error calling /reset:', error);
-        // Optionally display an error message to the user
     });
 }

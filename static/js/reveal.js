@@ -1,28 +1,34 @@
+import { getDeviceId } from './device_id.js';
+
 document.getElementById('reveal-button').addEventListener('click', function() {
-    fetch('/reveal')
+    fetch(`/reveal?device_id=${getDeviceId()}`)
         .then(response => response.json())
         .then(data => {
             document.body.classList.add('character-revealed');
             document.getElementById('revealed-character').textContent = `${data.character}`;
-
-            // Create an image element
             const characterImage = document.createElement('img');
             characterImage.src = data.image_url;
-            characterImage.alt = data.character; // Add alt text for accessibility
-            characterImage.classList.add('revealed-image'); // Optional: Add a class for styling
-
-            // Get the container where you want to display the image
-            const imageContainer = document.getElementById('image-container'); // Make sure you have an element with this ID in your HTML
-
-            // Clear any previous image (optional)
+            characterImage.alt = data.character;
+            characterImage.classList.add('revealed-image');
+            const imageContainer = document.getElementById('image-container');
             imageContainer.innerHTML = '';
-
-            // Append the image to the container
             imageContainer.appendChild(characterImage);
         })
         .catch(error => console.error('Error:', error));
 });
 
 document.getElementById('reset-button').addEventListener('click', function() {
-    window.location.reload();
+    fetch('/reset', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ device_id: getDeviceId() })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.message);
+        window.location.reload();
+    })
+    .catch(error => console.error('Error resetting:', error));
 });

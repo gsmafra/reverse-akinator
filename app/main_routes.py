@@ -29,11 +29,12 @@ def index():
     return render_template("index.html")
 
 
-@main_bp.route("/reset", methods=["GET"])
+@main_bp.route("/reset", methods=["POST"])
 def reset_character():
+    data = request.get_json()
+    device_id = data.get("device_id")
     current_character = random.choice(CHARACTERS)
-    print(f"New character selected: {current_character}")  # For debugging
-    device_id = request.remote_addr
+    print(f"New character selected for device {device_id}: {current_character}")  # For debugging
     set_character(device_id, current_character)
     return jsonify({"message": "Character has been reset."})
 
@@ -41,10 +42,8 @@ def reset_character():
 @main_bp.route("/ask", methods=["GET"])
 def ask():
     question = request.args.get("question")
+    device_id = request.args.get("device_id")
     question = normalize_question(question)
-    if question is None:
-        return jsonify({"error": "Missing required parameter 'question'"}), 400
-    device_id = request.remote_addr
     current_character = get_character(device_id)
 
     answer = get_cached_answer(current_character, question)
@@ -59,7 +58,8 @@ def ask():
 
 @main_bp.route("/reveal", methods=["GET"])
 def reveal_character():
-    current_character = get_character(request.remote_addr)
+    device_id = request.args.get("device_id")
+    current_character = get_character(device_id)
     return jsonify(
         {
             "character": current_character,

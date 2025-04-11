@@ -1,3 +1,5 @@
+import { getDeviceId } from './device_id.js';
+
 const askButton = document.getElementById("ask-button");
 const questionInput = document.getElementById("question-input");
 const answerContainer = document.getElementById("answer-container");
@@ -10,12 +12,10 @@ function submitQuestion() {
         return;
     }
 
-    // Disable the button and show the loading spinner
     askButton.disabled = true;
     askButton.innerHTML = '<span class="loading-spinner"></span>';
 
-    // Construct the URL with the question as a query parameter
-    const url = `/ask?question=${encodeURIComponent(question)}`;
+    const url = `/ask?question=${encodeURIComponent(question)}&device_id=${getDeviceId()}`;
 
     fetch(url, {
         method: 'GET',
@@ -34,27 +34,26 @@ function submitQuestion() {
             const answerText = data.answer === 'yes' ? 'Yes' : data.answer === 'no' ? 'No' : 'Ambiguous';
             answerContainer.textContent = `Answer: ${answerText}`;
             updateSessionHistoryList(data.session_answers);
-            answerContainer.classList.remove('error'); // Remove error class if present
+            answerContainer.classList.remove('error');
         } else {
             answerContainer.textContent = "Error: Invalid response from server.";
-            answerContainer.classList.add('error'); // Add error class for styling
+            answerContainer.classList.add('error');
         }
     })
     .catch(error => {
         console.error('Error calling backend:', error);
         answerContainer.textContent = "Error communicating with the server.";
-        answerContainer.classList.add('error'); // Add error class for styling
+        answerContainer.classList.add('error');
     })
     .finally(() => {
-        // Re-enable the button and reset its text
         askButton.disabled = false;
         askButton.innerHTML = 'Ask!';
-        questionInput.value = ""; // Clear the input field
+        questionInput.value = "";
     });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    const askButton = document.getElementById("ask-button"); // Re-declare if needed inside the listener
+    const askButton = document.getElementById("ask-button");
     askButton.addEventListener('click', submitQuestion);
 });
 
