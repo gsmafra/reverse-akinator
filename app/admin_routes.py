@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, jsonify, request
 
 from app.db_access import get_thumbs_down_answers, update_answer
 
-admin_bp = Blueprint("admin", __name__, url_prefix="/admin")
+admin_bp = Blueprint("admin", __name__)
 
 
 @admin_bp.route("/ping")
