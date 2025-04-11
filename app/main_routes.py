@@ -34,7 +34,7 @@ def reset_character():
     data = request.get_json()
     device_id = data.get("device_id")
     current_character = random.choice(CHARACTERS)
-    print(f"New character selected for device {device_id}: {current_character}")  # For debugging
+    print(f"New character selected for device {device_id}: {current_character}")
     set_character(device_id, current_character)
     return jsonify({"message": "Character has been reset."})
 

@@ -5,9 +5,10 @@ import google.generativeai as genai
 
 from app.config import config
 from app.resources.resources import PROMPT_TEMPLATE
+from app.wikipedia import get_wikipedia_article
 
 genai.configure(api_key=config.GEMINI_API_KEY)
-model = genai.GenerativeModel("gemini-1.5-flash")
+model = genai.GenerativeModel("gemini-2.0-flash")
 
 
 def timeout(seconds):
@@ -62,18 +63,24 @@ def _parse_gemini_response(response):
     if not first_part.text:
         return "No text in the first part of the first candidate"
 
-    answer = first_part.text.strip()  # Remove potential whitespace
+    answer = first_part.text.strip().lower()
 
-    if answer.lower() not in ["yes", "no", "ambiguous"]:
+    if answer == "amb":
+        answer = "ambiguous"
+
+    if answer not in ["yes", "no", "ambiguous"]:
         return f"Invalid answer format: '{answer}'"
 
-    return answer.lower()
+    return answer
 
 
 @timeout(10)
 def get_gemini_answer(character, question):
-    prompt = PROMPT_TEMPLATE.replace("{{character}}", character).replace(
-        "{{question}}", question
+    wikipedia_page = get_wikipedia_article(character)
+    prompt = (
+        PROMPT_TEMPLATE.replace("{{character}}", character)
+        .replace("{{question}}", question)
+        .replace("{{wikipedia_page}}", wikipedia_page)
     )
     response = model.generate_content(
         contents=prompt,

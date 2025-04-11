@@ -52,7 +52,13 @@ character: Darth Vader
 question: Father
 → yes
 
+!!!!!!!!!!!!!!!!!!!! IMPORTANT !!!!!!!!!!!!!!!!!!!!
 Now answer for:
 
 character: {{character}}
 question: {{question}}
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Here is a Wikipedia page for reference about {{character}}:
+
+{{wikipedia_page}}
