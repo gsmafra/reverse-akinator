@@ -7,10 +7,13 @@ Albert Einstein
 Alexander the Great
 Amy Winehouse
 Angelina Jolie
+Ariel (The Little Mermaid)
 Arnold Schwarzenegger
+Ash Ketchum
 Augustus
 Babe (the pig)
 Barack Obama
+Barbie
 Batman
 Beyonce
 Bill Gates
@@ -27,6 +30,7 @@ Charlie Chaplin
 Charizard
 Charmander
 Chewbacca
+Cinderella
 Cleopatra
 Cristiano Ronaldo
 Daenerys Targaryen
@@ -35,6 +39,7 @@ Darth Vader
 Donald Duck
 Donald Trump
 Dory
+Easter Bunny
 Eddard Stark
 Eddie Murphy
 Elon Musk
@@ -75,6 +80,7 @@ Justin Bieber
 Kamala Harris
 Karl Marx
 Kate Winslet
+Ken
 Kurt Cobain
 Lady Gaga
 Lara Croft
@@ -114,6 +120,7 @@ Pope Benedict XVI
 Pope Francis
 Pope John Paul II
 Popeye
+Princess Peach
 Prophet Muhammad
 Queen Elizabeth II
 Rapunzel
@@ -123,15 +130,18 @@ Romário
 Ronaldinho
 Ronaldo (R9)
 RuPaul
+Santa Claus
 Saruman
 Satan
 Sauron
 Scooby Doo
+Severus Snape
 Sherlock Holmes
 Shrek
 Silvio Santos
 Simba
 Simone Biles
+Sleeping Beauty
 Snoop Dogg
 Snoopy
 Snow White
@@ -167,4 +177,5 @@ Woody
 Woody Woodpecker
 Yoda
 Zé Pequeno
+Zelda
 Zendaya
