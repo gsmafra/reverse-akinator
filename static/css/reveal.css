@@ -17,6 +17,11 @@
     display: none;
 }
 
+.revealed-image {
+    max-height: 300px;
+    height: auto; /* Maintain aspect ratio */
+}
+
 #reset-button {
     background-color: #00690577;
     color: #fff;
