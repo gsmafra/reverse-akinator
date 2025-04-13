@@ -1,0 +1,51 @@
+# Use the latest 2.1 version of CircleCI pipelines.
+version: 2.1
+
+# Define reusable commands
+commands:
+  # Command to install dependencies
+  install_dependencies:
+    steps:
+      - run:
+          name: Install Dependencies
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements-dev.txt
+
+  # Command to run Pylint
+  run_pylint:
+    steps:
+      - run:
+          name: Run Pylint
+          command: |
+            . venv/bin/activate
+            pylint app tests
+
+  # Command to run Pytest
+  run_pytest:
+    steps:
+      - run:
+          name: Run Pytest
+          command: |
+            . venv/bin/activate
+            pytest tests
+
+# Define the jobs in the pipeline
+jobs:
+  build:
+    docker:
+      # Use a Python 3.9 Docker image.  You can change this.
+      - image: cimg/python:3.9
+    steps:
+      - checkout
+      - install_dependencies
+      - run_pylint
+      - run_pytest
+
+# Define the workflows in the pipeline
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
