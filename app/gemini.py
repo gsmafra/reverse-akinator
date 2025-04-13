@@ -48,7 +48,7 @@ def timeout(seconds):
 
 
 def _parse_gemini_response(response):
-    if not response.candidates:
+    if not response or not response.candidates:
         return "No response from the model"
 
     first_candidate = response.candidates[0]
@@ -69,7 +69,7 @@ def _parse_gemini_response(response):
         answer = "ambiguous"
 
     if answer not in ["yes", "no", "ambiguous"]:
-        return f"Invalid answer format: '{answer}'"
+        return f"Invalid answer format: '{first_part.text}'"
 
     return answer
 
