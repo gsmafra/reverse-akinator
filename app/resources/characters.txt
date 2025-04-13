@@ -15,6 +15,7 @@ Babe (the pig)
 Barack Obama
 Barbie
 Batman
+Ben 10
 Beyonce
 Bill Gates
 Bob Marley
@@ -23,19 +24,24 @@ Britney Spears
 Bugs Bunny
 Bulbasaur
 Buzz Lightyear
+Camilla Parker Bowles
 Captain America
+Catherine Middleton
 Cersei Lannister
 Charlemagne
+Charlie Brown
 Charlie Chaplin
 Charizard
 Charmander
 Chewbacca
 Cinderella
 Cleopatra
+Courage the Cowardly Dog
 Cristiano Ronaldo
 Daenerys Targaryen
 Daffy Duck
 Darth Vader
+Diana, Princess of Wales
 Donald Duck
 Donald Trump
 Dory
@@ -73,6 +79,7 @@ Jim Carrey
 Joffrey Baratheon
 Joe Biden
 John Lennon
+Johnny Bravo
 Jon Snow
 Joseph Stalin
 Julius Caesar
@@ -81,6 +88,7 @@ Kamala Harris
 Karl Marx
 Kate Winslet
 Ken
+King Charles III
 Kurt Cobain
 Lady Gaga
 Lara Croft
@@ -97,11 +105,14 @@ Mao Zedong
 Marilyn Monroe
 Mario
 Mark Zuckerberg
+Meghan Markle
 Mewtwo
 Michael Corleone
 Michael Jackson
 Michael Jordan
+Michael Schumacher
 Mickey Mouse
+Minnie Mouse
 Mr. Krabs
 Mystery (Erik von Markovik)
 Napoleon Bonaparte
@@ -109,6 +120,7 @@ Naruto Uzumaki
 Nemo (the fish)
 Neymar
 Oprah Winfrey
+Osama bin Laden
 Pac-Man
 Patrick Star
 Paul Atreides
@@ -120,6 +132,8 @@ Pope Benedict XVI
 Pope Francis
 Pope John Paul II
 Popeye
+Porky Pig
+Prince Harry, Duke of Sussex
 Princess Peach
 Prophet Muhammad
 Queen Elizabeth II
@@ -130,6 +144,7 @@ Romário
 Ronaldinho
 Ronaldo (R9)
 RuPaul
+Saddam Hussein
 Santa Claus
 Saruman
 Satan
@@ -138,6 +153,7 @@ Scooby Doo
 Severus Snape
 Sherlock Holmes
 Shrek
+Siddhartha Gautama (the Buddha)
 Silvio Santos
 Simba
 Simone Biles
@@ -145,6 +161,7 @@ Sleeping Beauty
 Snoop Dogg
 Snoopy
 Snow White
+Socrates
 Sonic the Hedgehog
 Spider-Man
 SpongeBob SquarePants
@@ -162,6 +179,7 @@ Tiger Woods
 Tinky-Winky
 Tom Cruise
 Totoro
+Tweety
 Tyrion Lannister
 Usain Bolt
 Vegeta
@@ -170,11 +188,13 @@ Vladimir Putin
 Volodymyr Zelenskyy
 Wall-E
 Will Smith
+William, Prince of Wales
 Winnie-the-Pooh
 Wolfgang Amadeus Mozart
 Wonder Woman
 Woody
 Woody Woodpecker
+Xi Jinping
 Yoda
 Zé Pequeno
 Zelda
