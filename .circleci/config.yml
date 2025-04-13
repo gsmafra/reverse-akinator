@@ -35,8 +35,7 @@ commands:
 jobs:
   build:
     docker:
-      # Use a Python 3.9 Docker image.  You can change this.
-      - image: cimg/python:3.9
+      - image: cimg/python:3.11
     steps:
       - checkout
       - install_dependencies
