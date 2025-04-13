@@ -1,4 +1,6 @@
+import sentry_sdk
 from flask import Flask, render_template
+
 from app.main_routes import main_bp
 from app.admin_routes import admin_bp
 from app.scheduler import init_scheduler
@@ -14,6 +16,11 @@ def page_not_found(e):
     return render_template("404.html"), 404
 
 
+def init_sentry():
+    sentry_sdk.init(dsn=app.config["SENTRY_DSN"], send_default_pii=True)
+
+
 if __name__ == "__main__":
     init_scheduler()
+    init_sentry()
     app.run(host="0.0.0.0", debug=False)
