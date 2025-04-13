@@ -1,4 +1,5 @@
 50 Cent
+Adam
 Aladdin
 Abraham Lincoln
 Adolf Hitler
@@ -45,12 +46,14 @@ Diana, Princess of Wales
 Donald Duck
 Donald Trump
 Dory
+Dumbledore
 Easter Bunny
 Eddard Stark
 Eddie Murphy
 Elon Musk
 Elvis Presley
 Eminem
+Eve
 Faustão
 Frank Sinatra
 Fred Flintstone
@@ -62,9 +65,11 @@ George Floyd
 George Washington
 Gohan
 Goku
+Gru
 Harambe
 Harry Potter
 Hello Kitty
+Hercules
 Hermione Granger
 Homer Simpson
 Indiana Jones
@@ -92,6 +97,7 @@ King Charles III
 Kurt Cobain
 Lady Gaga
 Lara Croft
+Leonardo da Vinci
 Leonardo DiCaprio
 Lionel Messi
 Loki
@@ -105,6 +111,7 @@ Mao Zedong
 Marilyn Monroe
 Mario
 Mark Zuckerberg
+Mary, mother of Jesus
 Meghan Markle
 Mewtwo
 Michael Corleone
@@ -119,6 +126,7 @@ Napoleon Bonaparte
 Naruto Uzumaki
 Nemo (the fish)
 Neymar
+Noah
 Oprah Winfrey
 Osama bin Laden
 Pac-Man
@@ -199,3 +207,4 @@ Yoda
 Zé Pequeno
 Zelda
 Zendaya
+Zeus
