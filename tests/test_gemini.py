@@ -1,5 +1,5 @@
 from app.gemini import _parse_gemini_response  # Import the function
-from dot_dict import DotDict
+from tests.dot_dict import DotDict
 
 
 def test_valid_response_yes():
