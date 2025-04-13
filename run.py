@@ -17,6 +17,8 @@ def page_not_found(e):
 
 
 def init_sentry():
+    if app.config["SENTRY_DSN"] is None:
+        return
     sentry_sdk.init(dsn=app.config["SENTRY_DSN"], send_default_pii=True, environment=app.config["ENVIRONMENT"])
 
 
