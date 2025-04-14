@@ -3,11 +3,13 @@ Adam
 Aladdin
 Abraham Lincoln
 Adolf Hitler
+Agent Smith
 Al Pacino
 Albert Einstein
 Alexander the Great
 Amy Winehouse
 Angelina Jolie
+Aragorn
 Ariel (The Little Mermaid)
 Arnold Schwarzenegger
 Ash Ketchum
@@ -37,12 +39,14 @@ Charmander
 Chewbacca
 Cinderella
 Cleopatra
+Clint Eastwood
 Courage the Cowardly Dog
 Cristiano Ronaldo
 Daenerys Targaryen
 Daffy Duck
 Darth Vader
 Diana, Princess of Wales
+Don Ramón
 Donald Duck
 Donald Trump
 Dory
@@ -50,7 +54,9 @@ Dumbledore
 Easter Bunny
 Eddard Stark
 Eddie Murphy
+El Chavo
 Elon Musk
+Elsa (Frozen)
 Elvis Presley
 Eminem
 Eve
@@ -95,6 +101,7 @@ Kate Winslet
 Ken
 King Charles III
 Kurt Cobain
+La Chilindrina
 Lady Gaga
 Lara Croft
 Leonardo da Vinci
@@ -112,6 +119,8 @@ Marilyn Monroe
 Mario
 Mark Zuckerberg
 Mary, mother of Jesus
+Maximus Decimus Meridius
+Megatron
 Meghan Markle
 Mewtwo
 Michael Corleone
@@ -125,9 +134,11 @@ Mystery (Erik von Markovik)
 Napoleon Bonaparte
 Naruto Uzumaki
 Nemo (the fish)
+Neo (The Matrix)
 Neymar
 Noah
 Oprah Winfrey
+Optimus Prime
 Osama bin Laden
 Pac-Man
 Patrick Star
@@ -142,9 +153,11 @@ Pope John Paul II
 Popeye
 Porky Pig
 Prince Harry, Duke of Sussex
+Princess Leia
 Princess Peach
 Prophet Muhammad
 Queen Elizabeth II
+Quico
 Rapunzel
 Rihanna
 Robert Oppenheimer
@@ -181,7 +194,9 @@ Sun Tzu
 Superman
 Sylvester Stallone
 Taylor Swift
+The Hunchback of Notre Dame
 The Joker
+The Little Prince
 Thor
 Tiger Woods
 Tinky-Winky
