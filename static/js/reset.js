@@ -1,6 +1,6 @@
 import { getDeviceId } from './device_id.js';
 
-function resetCharacter() {
+document.addEventListener('DOMContentLoaded', function() {
     fetch('/reset', {
         method: 'POST',
         headers: {
@@ -10,17 +10,17 @@ function resetCharacter() {
     })
     .then(response => {
         if (!response.ok) {
-            console.error('Error resetting character:', response.status);
+            console.error('Error resetting character on load:', response.status);
         }
         return response.json();
     })
     .then(data => {
-        console.log('Reset successful:', data.message);
+        console.log('Reset successful on load:', data.message);
     })
     .catch(error => {
-        console.error('Error calling /reset:', error);
+        console.error('Error calling /reset on load:', error);
     });
-}
+});
 
 document.getElementById('reset-button').addEventListener('click', function() {
     fetch('/reset', {
@@ -35,5 +35,5 @@ document.getElementById('reset-button').addEventListener('click', function() {
         console.log(data.message);
         window.location.reload();
     })
-    .catch(error => console.error('Error resetting:', error));
+    .catch(error => console.error('Error resetting on button click:', error));
 });
