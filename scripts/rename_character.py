@@ -33,7 +33,7 @@ def update_characters_file(old_name, new_name):
     """Updates the character name in the characters.txt file."""
     with open(CHARACTERS_FILE_PATH, "r") as f:
         lines = f.readlines()
-    updated_lines = [line.replace(old_name, new_name) for line in lines]
+    updated_lines = sorted([line.replace(old_name, new_name) for line in lines])
     with open(CHARACTERS_FILE_PATH, "w") as f:
         f.writelines(updated_lines)
 
