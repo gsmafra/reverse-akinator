@@ -1,10 +1,10 @@
 50 Cent
-Adam
-Aladdin
 Abraham Lincoln
+Adam
 Adolf Hitler
 Agent Smith
 Al Pacino
+Aladdin
 Albert Einstein
 Alexander the Great
 Amy Winehouse
@@ -31,10 +31,10 @@ Camilla Parker Bowles
 Captain America
 Catherine Middleton
 Cersei Lannister
+Charizard
 Charlemagne
 Charlie Brown
 Charlie Chaplin
-Charizard
 Charmander
 Chewbacca
 Cinderella
@@ -87,8 +87,8 @@ James Bond
 Jeff Bezos
 Jesus Christ
 Jim Carrey
-Joffrey Baratheon
 Joe Biden
+Joffrey Baratheon
 John Lennon
 Johnny Bravo
 Jon Snow
@@ -104,8 +104,8 @@ Kurt Cobain
 La Chilindrina
 Lady Gaga
 Lara Croft
-Leonardo da Vinci
 Leonardo DiCaprio
+Leonardo da Vinci
 Lionel Messi
 Loki
 Lola Bunny
@@ -155,6 +155,7 @@ Porky Pig
 Prince Harry, Duke of Sussex
 Princess Leia
 Princess Peach
+Princess Zelda
 Prophet Muhammad
 Queen Elizabeth II
 Quico
@@ -219,7 +220,6 @@ Woody
 Woody Woodpecker
 Xi Jinping
 Yoda
-Zé Pequeno
-Zelda
 Zendaya
 Zeus
+Zé Pequeno
