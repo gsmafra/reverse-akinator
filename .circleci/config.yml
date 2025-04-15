@@ -33,7 +33,7 @@ commands:
 
 # Define the jobs in the pipeline
 jobs:
-  build:
+  build-and-test-staging:
     docker:
       - image: cimg/python:3.11
     steps:
@@ -42,9 +42,42 @@ jobs:
       - run_pylint
       - run_pytest
 
+  merge-to-main:
+    docker:
+      - image: alpine/git
+    steps:
+      - checkout
+      - run:
+          name: Configure Git User
+          command: |
+            git config user.email "$GIT_EMAIL"
+            git config user.name "$GIT_USER"
+      - run:
+          name: Merge staging to main
+          command: |
+            git checkout main
+            git merge staging --no-ff -m "Automated merge from staging after successful CI"
+            git remote set-url origin "https://$GITHUB_USER:$GITHUB_TOKEN@github.com/gsmafra/reverse-akinator.git"
+            git push origin main
+    needs:
+      - build-and-test-staging
+
 # Define the workflows in the pipeline
 workflows:
   version: 2
-  build_and_test:
+  staging-to-main:
     jobs:
-      - build
+      - build-and-test-staging:
+          name: Build and Test Staging
+          filters:
+            branches:
+              only:
+                - staging
+      - merge-to-main:
+          name: Merge to Main
+          requires:
+            - build-and-test-staging
+          filters:
+            branches:
+              only:
+                - staging
