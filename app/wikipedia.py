@@ -18,7 +18,7 @@ def get_wikipedia_article(character):
         page = wikipedia.page(title, auto_suggest=False)
         _wikipedia_cache[title] = page.content
         return page.content
-    except wikipedia.exceptions.PageError:
+    except wikipedia.exceptions.PageError as e:
         print(f"Error: Page not found for {title}")
         capture_exception(e)
         return None
