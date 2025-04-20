@@ -8,6 +8,7 @@ class Config:
     SENTRY_DSN = os.environ.get("SENTRY_DSN")
     ENVIRONMENT = os.environ.get("ENVIRONMENT", "unset")
     DEBUG = True
+    SCHEDULER_ENABLED = os.environ.get("SCHEDULER_ENABLED", False)
 
 
 config = Config()
