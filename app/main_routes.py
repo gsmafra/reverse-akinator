@@ -12,16 +12,9 @@ from app.db_access import (
     add_thumbs_down,
 )
 from app.gemini import get_gemini_answer
+from app.utils import normalize_question
 
 main_bp = Blueprint("main", __name__)
-
-
-def normalize_question(question):
-    question = question.strip()
-    question = question[0].upper() + question[1:]
-    while question.endswith("?"):
-        question = question[:-1]
-    return question
 
 
 @main_bp.route("/")

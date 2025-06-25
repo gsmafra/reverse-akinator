@@ -46,6 +46,13 @@ def set_character(db, device_id, character):
 
 
 def update_session_answer(db, device_id, question, answer):
+    """
+    Appends a new question/answer pair to the 'session_answers' array field.
+
+    Note: While 'session_answers' is modeled as an array, it does not grow indefinitely.
+    At the start of each new session, we call 'set_character', which overwrites the 
+    entire document and resets any previous session data, including 'session_answers'.
+    """
     doc_ref = db.collection("devices").document(device_id)
     doc_ref.update(
         {"session_answers": ArrayUnion([{"question": question, "answer": answer}])}
