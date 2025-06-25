@@ -2,7 +2,7 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 
 from app.config import config
-from app.main import normalize_question
+from app.utils import normalize_question
 
 
 def initialize_firebase():
