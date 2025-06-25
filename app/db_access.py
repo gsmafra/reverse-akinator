@@ -1,5 +1,6 @@
 import firebase_admin
 from firebase_admin import credentials, firestore
+from google.cloud.firestore_v1 import ArrayUnion
 from google.cloud.firestore import FieldFilter
 
 from app.config import config
@@ -46,12 +47,11 @@ def set_character(db, device_id, character):
 
 def update_session_answer(db, device_id, question, answer):
     doc_ref = db.collection("devices").document(device_id)
-    doc_data = doc_ref.get().to_dict()
-    if "session_answers" not in doc_data:
-        doc_data["session_answers"] = []
-    doc_data["session_answers"].append({"question": question, "answer": answer})
-    doc_ref.set(doc_data)
-    return doc_data["session_answers"]
+    doc_ref.update(
+        {"session_answers": ArrayUnion([{"question": question, "answer": answer}])}
+    )
+    updated_doc = doc_ref.get().to_dict()
+    return updated_doc.get("session_answers", [])
 
 
 def add_thumbs_down(db, question, character, answer):
