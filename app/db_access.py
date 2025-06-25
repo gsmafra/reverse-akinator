@@ -14,12 +14,12 @@ def init_firebase():
 
 
 def cache_answer(db, character, question, answer):
-    doc_ref = db.collection("answers").document()
+    doc_ref = db.collection("canonical_answers").document()
     doc_ref.set({"character": character, "question": question, "answer": answer})
 
 
 def get_cached_answer(db, character, question):
-    answers_ref = db.collection("answers")
+    answers_ref = db.collection("canonical_answers")
     query = answers_ref.where(filter=FieldFilter("character", "==", character)).where(
         filter=FieldFilter("question", "==", question)
     )
@@ -62,7 +62,7 @@ def update_session_answer(db, device_id, question, answer):
 
 
 def add_thumbs_down(db, question, character, answer):
-    answers_ref = db.collection("answers")
+    answers_ref = db.collection("canonical_answers")
     query = (
         answers_ref.select(field_paths=["question", "character", "answer"])
         .where(filter=FieldFilter("question", "==", question))
@@ -75,14 +75,14 @@ def add_thumbs_down(db, question, character, answer):
 
 
 def get_thumbs_down_answers(db):
-    answers_ref = db.collection("answers")
+    answers_ref = db.collection("canonical_answers")
     query = answers_ref.where(filter=FieldFilter("thumbs_down", "==", True))
     results = query.get()
     return [doc.to_dict() for doc in results]
 
 
 def update_answer(db, character, question, answer, thumbs_down):
-    answers_ref = db.collection("answers")
+    answers_ref = db.collection("canonical_answers")
     query = answers_ref.where(filter=FieldFilter("character", "==", character)).where(
         filter=FieldFilter("question", "==", question)
     )
