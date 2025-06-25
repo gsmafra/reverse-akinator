@@ -16,7 +16,7 @@ commands:
           name: Run Pylint
           command: |
             . venv/bin/activate
-            pylint app tests
+            pylint app scripts tests
 
   run_pytest:
     steps:
