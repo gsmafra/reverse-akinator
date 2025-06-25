@@ -1,19 +1,9 @@
-import firebase_admin
-from firebase_admin import credentials, firestore
-
-from app.config import config
+from app.db_access import init_firebase
 from app.utils import normalize_question
 
 
-def initialize_firebase():
-    if not firebase_admin._apps:
-        cred = credentials.Certificate(config.FIREBASE_KEY_PATH)
-        firebase_admin.initialize_app(cred)
-    return firestore.client()
-
-
 def main():
-    db = initialize_firebase()
+    db = init_firebase()
     results = db.collection("answers").get()
     for doc in results:
         question = doc.to_dict()["question"]
