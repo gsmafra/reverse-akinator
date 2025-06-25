@@ -4,8 +4,10 @@ from flask import Flask, render_template
 from app.main_routes import main_bp
 from app.admin_routes import admin_bp
 from app.scheduler import init_scheduler
+from app.db_access import init_firebase
 
 app = Flask(__name__)
+app.db = init_firebase()
 app.register_blueprint(main_bp)
 app.register_blueprint(admin_bp)
 app.config.from_object("app.config.Config")

@@ -12,15 +12,12 @@ def init_firebase():
     return firestore.client()
 
 
-db = init_firebase()
-
-
-def cache_answer(character, question, answer):
+def cache_answer(db, character, question, answer):
     doc_ref = db.collection("answers").document()
     doc_ref.set({"character": character, "question": question, "answer": answer})
 
 
-def get_cached_answer(character, question):
+def get_cached_answer(db, character, question):
     answers_ref = db.collection("answers")
     query = answers_ref.where(filter=FieldFilter("character", "==", character)).where(
         filter=FieldFilter("question", "==", question)
@@ -36,18 +33,18 @@ def get_cached_answer(character, question):
     return answer
 
 
-def get_character(device_id):
+def get_character(db, device_id):
     doc_ref = db.collection("devices").document(device_id)
     doc = doc_ref.get()
     return doc.to_dict()["character"]
 
 
-def set_character(device_id, character):
+def set_character(db, device_id, character):
     doc_ref = db.collection("devices").document(device_id)
     doc_ref.set({"character": character})
 
 
-def update_session_answer(device_id, question, answer):
+def update_session_answer(db, device_id, question, answer):
     doc_ref = db.collection("devices").document(device_id)
     doc_data = doc_ref.get().to_dict()
     if "session_answers" not in doc_data:
@@ -57,7 +54,7 @@ def update_session_answer(device_id, question, answer):
     return doc_data["session_answers"]
 
 
-def add_thumbs_down(question, character, answer):
+def add_thumbs_down(db, question, character, answer):
     answers_ref = db.collection("answers")
     query = (
         answers_ref.select(field_paths=["question", "character", "answer"])
@@ -70,14 +67,14 @@ def add_thumbs_down(question, character, answer):
         doc.reference.set({"thumbs_down": True}, merge=True)
 
 
-def get_thumbs_down_answers():
+def get_thumbs_down_answers(db):
     answers_ref = db.collection("answers")
     query = answers_ref.where(filter=FieldFilter("thumbs_down", "==", True))
     results = query.get()
     return [doc.to_dict() for doc in results]
 
 
-def update_answer(character, question, answer, thumbs_down):
+def update_answer(db, character, question, answer, thumbs_down):
     answers_ref = db.collection("answers")
     query = answers_ref.where(filter=FieldFilter("character", "==", character)).where(
         filter=FieldFilter("question", "==", question)
