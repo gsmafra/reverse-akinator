@@ -1,23 +1,21 @@
+from functools import lru_cache
+
 import wikipedia
 from sentry_sdk import capture_exception
 from app.resources.resources import WIKIPEDIA_PAGES
 
-_wikipedia_cache = {}
+
+@lru_cache(maxsize=128)
+def _fetch_wikipedia_content(title):
+    print(f"Fetching Wikipedia content for: {title}")
+    page = wikipedia.page(title, auto_suggest=False)
+    return page.content
 
 
 def get_wikipedia_article(character):
-    """Retrieves a Wikipedia article from the cache.
-    If not found, it fetches and caches it.
-    """
     title = WIKIPEDIA_PAGES.get(character, character)
-    if title in _wikipedia_cache:
-        return _wikipedia_cache[title]
-
     try:
-        print(f"Fetching Wikipedia content for: {title}")
-        page = wikipedia.page(title, auto_suggest=False)
-        _wikipedia_cache[title] = page.content
-        return page.content
+        return _fetch_wikipedia_content(title)
     except wikipedia.exceptions.PageError as e:
         print(f"Error: Page not found for {title}")
         capture_exception(e)
