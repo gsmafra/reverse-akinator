@@ -20,8 +20,12 @@ def timeout(seconds):
                 try:
                     return future.result(timeout=seconds)
                 except concurrent.futures.TimeoutError as exc:
-                    raise TimeoutError(f"Function call timed out after {seconds} seconds") from exc
+                    raise TimeoutError(
+                        f"Function call timed out after {seconds} seconds"
+                    ) from exc
+
         return wrapper
+
     return decorator
 
 

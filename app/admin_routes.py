@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify, request
+from flask import Blueprint, render_template, jsonify, request, current_app
 
 from app.db_access import get_thumbs_down_answers, update_answer
 
@@ -17,14 +17,16 @@ def rectify():
 
 @admin_bp.route("/answers_to_rectify")
 def answers_to_rectify():
-    return jsonify(get_thumbs_down_answers())
+    db = current_app.db
+    return jsonify(get_thumbs_down_answers(db))
 
 
 @admin_bp.route("/rectify_answer", methods=["POST"])
 def rectify_answer():
+    db = current_app.db
     data = request.get_json()
     character = data["character"]
     question = data["question"]
     answer = data["rectified_answer"]
-    update_answer(character, question, answer, thumbs_down=False)
+    update_answer(db, character, question, answer, thumbs_down=False)
     return jsonify({"message": "Answer rectified successfully"})
