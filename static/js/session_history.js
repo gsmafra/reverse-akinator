@@ -1,4 +1,6 @@
-function updateSessionHistoryList(sessionAnswers) {
+import { getDeviceId } from './device_id.js';
+
+export function updateSessionHistoryList(sessionAnswers) {
   const sessionHistoryList = document.getElementById("session-history-list");
   sessionHistoryList.innerHTML = "";
 
@@ -43,7 +45,8 @@ function handleThumbsDownButtonClick(thumbsDownButton, answer) {
           body: JSON.stringify({
               question: question,
               character: character,
-              answer: answerText
+              answer: answerText,
+              device_id: getDeviceId(),
           })
       })
       .then(response => response.json())

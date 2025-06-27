@@ -1,9 +1,11 @@
 import concurrent.futures
 from functools import wraps
+import random
 
 import google.generativeai as genai
 
 from app.config import config
+from app.pipelines import PIPELINES
 from app.resources.resources import PROMPT_TEMPLATE
 from app.wikipedia import get_wikipedia_article
 
@@ -20,9 +22,7 @@ def timeout(seconds):
                 try:
                     return future.result(timeout=seconds)
                 except concurrent.futures.TimeoutError as exc:
-                    raise TimeoutError(
-                        f"Function call timed out after {seconds} seconds"
-                    ) from exc
+                    raise TimeoutError(f"Function call timed out after {seconds} seconds") from exc
 
         return wrapper
 
@@ -56,9 +56,25 @@ def _parse_gemini_response(response):
     return answer
 
 
+def _choose_pipeline():
+    pipelines = list(PIPELINES.items())
+    names = [name for name, _ in pipelines]
+    probabilities = [PIPELINES[name]["probability"] for name in names]
+    pipeline_name = random.choices(names, weights=probabilities, k=1)[0]
+    return pipeline_name, PIPELINES[pipeline_name]
+
+
 @timeout(10)
 def get_gemini_answer(character, question):
-    wikipedia_page = get_wikipedia_article(character)
+    # Choose pipeline based on probabilities
+    pipeline_name, pipeline_config = _choose_pipeline()
+    use_wikipedia = pipeline_config.get("use_wikipedia", False)
+
+    if use_wikipedia:
+        wikipedia_page = get_wikipedia_article(character)
+    else:
+        wikipedia_page = "No Wikipedia page available for this character."
+
     prompt = (
         PROMPT_TEMPLATE.replace("{{character}}", character)
         .replace("{{question}}", question)
@@ -75,4 +91,6 @@ def get_gemini_answer(character, question):
         stream=False,
     )
     answer = _parse_gemini_response(response)
-    return answer
+
+    # Return the answer and the pipeline name for tracking
+    return answer, pipeline_name

@@ -53,6 +53,7 @@ def thumbs_down():
     question = data["question"]
     character = data["character"]
     answer = data["answer"]
+    device_id = data["device_id"]
 
-    thumbs_down_answer(db, question, character, answer)
+    thumbs_down_answer(db, question, character, answer, device_id)
     return jsonify({"message": "Thumbs down added successfully"})

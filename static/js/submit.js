@@ -1,4 +1,5 @@
 import { getDeviceId } from './device_id.js';
+import { updateSessionHistoryList } from './session_history.js';
 
 const askButton = document.getElementById("ask-button");
 const questionInput = document.getElementById("question-input");

@@ -27,6 +27,7 @@ def rectify_answer():
     data = request.get_json()
     character = data["character"]
     question = data["question"]
-    answer = data["rectified_answer"]
-    rectify_answer_service(db, character, question, answer)
+    original_answer = data["original_answer"]
+    rectified_answer = data["rectified_answer"]
+    rectify_answer_service(db, character, question, original_answer, rectified_answer)
     return jsonify({"message": "Answer rectified successfully"})

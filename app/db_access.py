@@ -18,6 +18,23 @@ def set_canonical_answer(db, character, question, answer):
     doc_ref.set({"character": character, "question": question, "answer": answer})
 
 
+def set_served_answer(db, character, question, answer, pipeline_name, device_id):
+    """
+    Store the answer served by the model along with its pipeline ID.
+    This is useful for tracking which model version provided the answer.
+    """
+    doc_ref = db.collection("served_answers").document()
+    doc_ref.set(
+        {
+            "character": character,
+            "question": question,
+            "answer": answer,
+            "pipeline_name": pipeline_name,
+            "device_id": device_id,
+        }
+    )
+
+
 def get_canonical_answer(db, character, question):
     answers_ref = db.collection("canonical_answers")
     query = answers_ref.where(filter=FieldFilter("character", "==", character)).where(
@@ -57,43 +74,51 @@ def update_session(db, device_id, question, answer):
     entire document and resets any previous session data, including 'session_answers'.
     """
     doc_ref = db.collection("devices").document(device_id)
-    doc_ref.update(
-        {"session_answers": ArrayUnion([{"question": question, "answer": answer}])}
-    )
+    doc_ref.update({"session_answers": ArrayUnion([{"question": question, "answer": answer}])})
     updated_doc = doc_ref.get().to_dict()
     return updated_doc.get("session_answers", [])
 
 
-def add_thumbs_down(db, question, character, answer):
-    answers_ref = db.collection("canonical_answers")
+def add_thumbs_down(db, question, character, answer, device_id):
+    answers_ref = db.collection("served_answers")
     query = (
-        answers_ref.select(field_paths=["question", "character", "answer"])
+        answers_ref.select(field_paths=["question", "character", "answer", "device_id"])
         .where(filter=FieldFilter("question", "==", question))
         .where(filter=FieldFilter("character", "==", character))
         .where(filter=FieldFilter("answer", "==", answer))
+        .where(filter=FieldFilter("device_id", "==", device_id))
     )
     results = query.get()
     for doc in results:
-        doc.reference.set({"thumbs_down": True}, merge=True)
+        doc.reference.set({"thumbs_down": True, "rectified": False}, merge=True)
 
 
 def get_thumbs_down_answers(db):
-    answers_ref = db.collection("canonical_answers")
-    query = answers_ref.where(filter=FieldFilter("thumbs_down", "==", True))
+    answers_ref = db.collection("served_answers")
+    query = answers_ref.where(filter=FieldFilter("thumbs_down", "==", True)).where(
+        filter=FieldFilter("rectified", "==", False)
+    )
     results = query.get()
     return [doc.to_dict() for doc in results]
 
 
-def update_answer(db, character, question, answer, thumbs_down):
+def update_canonical_answer(db, character, question, answer):
     answers_ref = db.collection("canonical_answers")
     query = answers_ref.where(filter=FieldFilter("character", "==", character)).where(
         filter=FieldFilter("question", "==", question)
     )
     results = query.get()
     for doc in results:
-        doc.reference.update(
-            {
-                "answer": answer,
-                "thumbs_down": thumbs_down,
-            }
-        )
+        doc.reference.update({"answer": answer})
+
+
+def rectify_served_answer(db, character, question, original_answer):
+    answers_ref = db.collection("served_answers")
+    query = (
+        answers_ref.where(filter=FieldFilter("character", "==", character))
+        .where(filter=FieldFilter("question", "==", question))
+        .where(filter=FieldFilter("answer", "==", original_answer))
+    )
+    results = query.get()
+    for doc in results:
+        doc.reference.update({"rectified": True})
