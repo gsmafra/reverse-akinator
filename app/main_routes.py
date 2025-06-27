@@ -3,16 +3,8 @@ import random
 from flask import Blueprint, current_app, render_template, jsonify, request
 
 from app.resources.resources import CHARACTERS, CHARACTER_IMAGE_URLS
-from app.db_access import (
-    get_character,
-    set_character,
-    get_cached_answer,
-    cache_answer,
-    update_session_answer,
-    add_thumbs_down,
-)
-from app.gemini import get_gemini_answer
-from app.utils import normalize_question
+from app.db_access import get_character, set_character
+from app.answer_service import get_or_generate_answer, thumbs_down_answer
 
 main_bp = Blueprint("main", __name__)
 
@@ -38,17 +30,7 @@ def ask():
     db = current_app.db
     question = request.args.get("question")
     device_id = request.args.get("device_id")
-    question = normalize_question(question)
-    current_character = get_character(db, device_id)
-
-    answer = get_cached_answer(db, current_character, question)
-    if answer is None:
-        answer = get_gemini_answer(current_character, question)
-        cache_answer(db, current_character, question, answer)
-
-    session_answers = update_session_answer(db, device_id, question, answer)
-    key = "answer" if answer in ["yes", "no", "ambiguous"] else "error"
-    return jsonify({key: answer, "session_answers": session_answers})
+    return jsonify(get_or_generate_answer(db, device_id, question))
 
 
 @main_bp.route("/reveal", methods=["GET"])
@@ -72,6 +54,5 @@ def thumbs_down():
     character = data["character"]
     answer = data["answer"]
 
-    add_thumbs_down(db, question, character, answer)
-
+    thumbs_down_answer(db, question, character, answer)
     return jsonify({"message": "Thumbs down added successfully"})
