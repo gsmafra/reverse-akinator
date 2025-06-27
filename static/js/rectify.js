@@ -86,6 +86,7 @@ async function populateTable() {
             const data = {
                 character: item.character,
                 question: item.question,
+                original_answer: item.answer,
                 rectified_answer: selectedRectifiedAnswer
             };
 
