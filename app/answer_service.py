@@ -1,8 +1,8 @@
 from app.db_access import (
     get_character,
-    get_cached_answer,
-    cache_answer,
-    update_session_answer,
+    get_canonical_answer,
+    set_canonical_answer,
+    update_session,
     add_thumbs_down,
     get_thumbs_down_answers,
     update_answer,
@@ -15,12 +15,12 @@ def get_or_generate_answer(db, device_id, question):
     question = normalize_question(question)
     current_character = get_character(db, device_id)
 
-    answer = get_cached_answer(db, current_character, question)
+    answer = get_canonical_answer(db, current_character, question)
     if answer is None:
         answer = get_gemini_answer(current_character, question)
-        cache_answer(db, current_character, question, answer)
+        set_canonical_answer(db, current_character, question, answer)
 
-    session_answers = update_session_answer(db, device_id, question, answer)
+    session_answers = update_session(db, device_id, question, answer)
     key = "answer" if answer in ["yes", "no", "ambiguous"] else "error"
     return {key: answer, "session_answers": session_answers}
 
