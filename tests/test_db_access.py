@@ -1,4 +1,4 @@
-from app.db_access import get_cached_answer
+from app.db_access import get_canonical_answer
 
 
 class MockDoc:  # pylint: disable=too-few-public-methods
@@ -26,5 +26,5 @@ class MockDB:  # pylint: disable=too-few-public-methods
 
 def test_get_cached_answer_returns_answer():
     mock_db = MockDB()
-    result = get_cached_answer(mock_db, "Mario", "Is he Italian?")
+    result = get_canonical_answer(mock_db, "Mario", "Is he Italian?")
     assert result

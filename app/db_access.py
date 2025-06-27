@@ -13,12 +13,12 @@ def init_firebase():
     return firestore.client()
 
 
-def cache_answer(db, character, question, answer):
+def set_canonical_answer(db, character, question, answer):
     doc_ref = db.collection("canonical_answers").document()
     doc_ref.set({"character": character, "question": question, "answer": answer})
 
 
-def get_cached_answer(db, character, question):
+def get_canonical_answer(db, character, question):
     answers_ref = db.collection("canonical_answers")
     query = answers_ref.where(filter=FieldFilter("character", "==", character)).where(
         filter=FieldFilter("question", "==", question)
@@ -27,7 +27,10 @@ def get_cached_answer(db, character, question):
     if not len(results) > 0:
         return None
 
+    # we shouldn't have more than one canonical answer for a character/question pair
     answer = results[0].to_dict()["answer"]
+
+    # old answers were stored as booleans when we didn't have "ambiguous"
     if isinstance(answer, bool):
         answer = "yes" if answer else "no"
 
@@ -45,7 +48,7 @@ def set_character(db, device_id, character):
     doc_ref.set({"character": character})
 
 
-def update_session_answer(db, device_id, question, answer):
+def update_session(db, device_id, question, answer):
     """
     Appends a new question/answer pair to the 'session_answers' array field.
 
