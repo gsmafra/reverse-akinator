@@ -14,9 +14,7 @@ class DotDict(dict):
         #  is not found in the normal places.
         if attr in self:
             return self[attr]
-        raise AttributeError(
-            f"'{type(self).__name__}' object has no attribute '{attr}'"
-        )
+        raise AttributeError(f"'{type(self).__name__}' object has no attribute '{attr}'")
 
     def __setattr__(self, attr, value):
         if isinstance(value, dict):
@@ -30,9 +28,7 @@ class DotDict(dict):
         if attr in self:
             del self[attr]
         else:
-            raise AttributeError(
-                f"'{type(self).__name__}' object has no attribute '{attr}'"
-            )
+            raise AttributeError(f"'{type(self).__name__}' object has no attribute '{attr}'")
 
     def __repr__(self):
         """

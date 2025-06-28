@@ -54,7 +54,5 @@ def test_invalid_answer_format():
 
 
 def test_empty_text():
-    response = DotDict(
-        {"candidates": [{"content": {"parts": [{"text": "Please Provide"}]}}]}
-    )
+    response = DotDict({"candidates": [{"content": {"parts": [{"text": "Please Provide"}]}}]})
     assert _parse_gemini_response(response) == "Invalid answer format: 'Please Provide'"
