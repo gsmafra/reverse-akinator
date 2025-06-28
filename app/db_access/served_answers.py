@@ -30,3 +30,11 @@ def set_served_answer(db, character, question, answer, pipeline_name, device_id)
             "device_id": device_id,
         }
     )
+
+
+def get_all_served_answers(db):
+    """
+    Fetch all documents from the served_answers collection.
+    """
+    served_answers_ref = db.collection("served_answers")
+    return [doc.to_dict() for doc in served_answers_ref.stream()]
