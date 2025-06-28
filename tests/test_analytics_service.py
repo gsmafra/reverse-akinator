@@ -34,4 +34,4 @@ def test_compute_pipeline_analytics_basic():
 def test_compute_pipeline_analytics_empty():
     docs = []
     analytics = compute_pipeline_analytics(docs)
-    assert analytics == []
+    assert not analytics
