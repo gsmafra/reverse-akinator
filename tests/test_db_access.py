@@ -1,4 +1,4 @@
-from app.db_access import get_canonical_answer
+from app.db_access.canonical_answers import get_canonical_answer
 
 
 class MockDoc:  # pylint: disable=too-few-public-methods

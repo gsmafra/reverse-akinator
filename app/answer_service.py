@@ -1,14 +1,10 @@
-from app.db_access import (
+from app.db_access.canonical_answers import get_canonical_answer, set_canonical_answer, update_canonical_answer
+from app.db_access.devices import get_character, update_session
+from app.db_access.served_answers import add_thumbs_down, set_served_answer
+from app.db_access.rectification_queue import (
     add_to_rectification_queue,
-    get_character,
-    get_canonical_answer,
     get_rectification_queue,
     remove_from_rectification_queue,
-    set_canonical_answer,
-    set_served_answer,
-    update_session,
-    add_thumbs_down,
-    update_canonical_answer,
 )
 from app.gemini import get_gemini_answer
 from app.utils import normalize_question
