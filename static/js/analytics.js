@@ -26,9 +26,14 @@ async function populateAnalyticsTable() {
         row.appendChild(createTableCell(item.pipeline_name));
         row.appendChild(createTableCell(item.num_thumbs_down));
         row.appendChild(createTableCell(item.num_answers));
-        // Calculate percentage and format as string
+        // Format percentage
         const percent = (item.ratio_thumbs_down * 100).toFixed(1) + "%";
         row.appendChild(createTableCell(percent));
+        // Format confidence interval
+        const ciLow = (item.ratio_thumbs_down_ci_low * 100).toFixed(1);
+        const ciHigh = (item.ratio_thumbs_down_ci_high * 100).toFixed(1);
+        const ciString = `[${ciLow}%, ${ciHigh}%]`;
+        row.appendChild(createTableCell(ciString));
     });
 }
 
