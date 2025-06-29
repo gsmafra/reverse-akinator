@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, jsonify, request, current_app
 
-from app.answer_service import get_answers_to_rectify, rectify_answer_service
-from app.analytics_service import get_pipeline_analytics
+from app.services.answer import get_answers_to_rectify, rectify_answer_service
+from app.services.analytics import get_pipeline_analytics
 
 admin_bp = Blueprint("admin", __name__)
 
