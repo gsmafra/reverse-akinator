@@ -10,7 +10,12 @@ from app.resources.resources import PROMPT_TEMPLATE
 from app.wikipedia import get_wikipedia_article
 
 genai.configure(api_key=config.GEMINI_API_KEY)
-model = genai.GenerativeModel("gemini-2.0-flash")
+MODEL_NAMES = [
+    "gemini-2.0-flash",
+    "gemini-2.5-flash",
+]
+
+models = {name: genai.GenerativeModel(name) for name in MODEL_NAMES}
 
 
 def timeout(seconds):
@@ -69,6 +74,7 @@ def get_gemini_answer(character, question):
     # Choose pipeline based on probabilities
     pipeline_name, pipeline_config = _choose_pipeline()
     use_wikipedia = pipeline_config.get("use_wikipedia", False)
+    model_name = pipeline_config.get("model", "gemini-2.0-flash")
 
     if use_wikipedia:
         wikipedia_page = get_wikipedia_article(character)
@@ -80,10 +86,10 @@ def get_gemini_answer(character, question):
         .replace("{{question}}", question)
         .replace("{{wikipedia_page}}", wikipedia_page)
     )
-    response = model.generate_content(
+    response = models[model_name].generate_content(
         contents=prompt,
         generation_config=genai.types.GenerationConfig(
-            max_output_tokens=1,
+            max_output_tokens=1 if model_name == "gemini-2.0-flash" else None,
             temperature=0,
             top_p=1,
             top_k=1,
@@ -91,6 +97,9 @@ def get_gemini_answer(character, question):
         stream=False,
     )
     answer = _parse_gemini_response(response)
+
+    if answer not in ["yes", "no", "ambiguous"]:
+        print(response)
 
     # Return the answer and the pipeline name for tracking
     return answer, pipeline_name

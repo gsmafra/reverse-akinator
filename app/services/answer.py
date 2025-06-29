@@ -17,8 +17,9 @@ def get_or_generate_answer(db, device_id, question):
     answer = get_canonical_answer(db, current_character, question)
     if answer is None:
         answer, pipeline_name = get_gemini_answer(current_character, question)
-        set_canonical_answer(db, current_character, question, answer)
-        set_served_answer(db, current_character, question, answer, pipeline_name, device_id)
+        if answer in ["yes", "no", "ambiguous"]:
+            set_canonical_answer(db, current_character, question, answer)
+            set_served_answer(db, current_character, question, answer, pipeline_name, device_id)
 
     session_answers = update_session(db, device_id, question, answer)
     key = "answer" if answer in ["yes", "no", "ambiguous"] else "error"
