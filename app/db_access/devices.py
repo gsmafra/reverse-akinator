@@ -1,3 +1,4 @@
+from google.cloud.firestore import SERVER_TIMESTAMP
 from google.cloud.firestore_v1 import ArrayUnion
 
 
@@ -9,7 +10,7 @@ def get_character(db, device_id):
 
 def set_character(db, device_id, character):
     doc_ref = db.collection("devices").document(device_id)
-    doc_ref.set({"character": character})
+    doc_ref.set({"character": character, "timestamp": SERVER_TIMESTAMP}, merge=True)
 
 
 def update_session(db, device_id, question, answer):

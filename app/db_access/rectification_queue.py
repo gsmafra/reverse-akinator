@@ -1,4 +1,4 @@
-from google.cloud.firestore import FieldFilter
+from google.cloud.firestore import FieldFilter, SERVER_TIMESTAMP
 
 
 def add_to_rectification_queue(db, character, question, answer):
@@ -7,7 +7,7 @@ def add_to_rectification_queue(db, character, question, answer):
     This is useful for tracking answers that need to be reviewed or corrected.
     """
     doc_ref = db.collection("rectification_queue").document()
-    doc_ref.set({"character": character, "question": question, "answer": answer})
+    doc_ref.set({"character": character, "question": question, "answer": answer, "timestamp": SERVER_TIMESTAMP})
 
 
 def get_rectification_queue(db):
