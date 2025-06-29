@@ -1,5 +1,6 @@
 import math
-from app.analytics_service import compute_pipeline_analytics
+
+from app.services.analytics import compute_pipeline_analytics
 
 
 def test_compute_pipeline_analytics_basic():

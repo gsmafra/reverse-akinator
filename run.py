@@ -1,8 +1,8 @@
 import sentry_sdk
 from flask import Flask, render_template
 
-from app.main_routes import main_bp
-from app.admin_routes import admin_bp
+from app.routes.main import main_bp
+from app.routes.admin import admin_bp
 from app.scheduler import init_scheduler
 from app.db_access import init_firebase
 

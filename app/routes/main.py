@@ -4,7 +4,7 @@ from flask import Blueprint, current_app, render_template, jsonify, request
 
 from app.resources.resources import CHARACTERS, CHARACTER_IMAGE_URLS
 from app.db_access.devices import get_character, set_character
-from app.answer_service import get_or_generate_answer, thumbs_down_answer
+from app.services.answer import get_or_generate_answer, thumbs_down_answer
 
 main_bp = Blueprint("main", __name__)
 
