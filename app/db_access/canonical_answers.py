@@ -1,3 +1,4 @@
+from google.cloud.firestore import SERVER_TIMESTAMP
 from google.cloud.firestore import FieldFilter
 
 
@@ -22,7 +23,7 @@ def get_canonical_answer(db, character, question):
 
 def set_canonical_answer(db, character, question, answer):
     doc_ref = db.collection("canonical_answers").document()
-    doc_ref.set({"character": character, "question": question, "answer": answer})
+    doc_ref.set({"character": character, "question": question, "answer": answer, "timestamp": SERVER_TIMESTAMP})
 
 
 def update_canonical_answer(db, character, question, answer):

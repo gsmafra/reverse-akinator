@@ -1,4 +1,4 @@
-from google.cloud.firestore import FieldFilter
+from google.cloud.firestore import FieldFilter, SERVER_TIMESTAMP
 
 
 def add_thumbs_down(db, question, character, answer, device_id):
@@ -28,6 +28,7 @@ def set_served_answer(db, character, question, answer, pipeline_name, device_id)
             "answer": answer,
             "pipeline_name": pipeline_name,
             "device_id": device_id,
+            "timestamp": SERVER_TIMESTAMP,
         }
     )
 
