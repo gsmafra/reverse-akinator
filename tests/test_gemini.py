@@ -1,4 +1,4 @@
-from app.gemini import _parse_gemini_response  # Import the function
+from app.llm.gemini import _parse_gemini_response  # Import the function
 from tests.dot_dict import DotDict
 
 

@@ -6,7 +6,7 @@ from app.db_access.rectification_queue import (
     get_rectification_queue,
     remove_from_rectification_queue,
 )
-from app.gemini import get_gemini_answer
+from app.llm.gemini import get_gemini_answer
 from app.utils import normalize_question
 
 
