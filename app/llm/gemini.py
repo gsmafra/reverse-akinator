@@ -1,5 +1,4 @@
 import concurrent.futures
-import textwrap
 import random
 from functools import wraps
 
@@ -7,8 +6,7 @@ import google.generativeai as genai
 
 from app.config import config
 from app.llm.pipelines import PIPELINES
-from app.llm.wikipedia import get_wikipedia_article
-from app.resources.resources import PROMPT_TEMPLATE
+from app.llm.prompting import build_gemini_prompt
 
 genai.configure(api_key=config.GEMINI_API_KEY)
 MODEL_NAMES = [
@@ -68,44 +66,6 @@ def _choose_pipeline():
     probabilities = [PIPELINES[name]["probability"] for name in names]
     pipeline_name = random.choices(names, weights=probabilities, k=1)[0]
     return pipeline_name, PIPELINES[pipeline_name]
-
-
-def build_gemini_prompt(character, question, pipeline_config):
-    """
-    Build the prompt for Gemini model using the template and provided fields and pipeline config.
-    """
-    use_wikipedia = pipeline_config.get("use_wikipedia", False)
-    use_character_question_hint = pipeline_config.get("use_character_question_hint", "")
-
-    if use_wikipedia:
-        wikipedia_page = get_wikipedia_article(character)
-    else:
-        wikipedia_page = "No Wikipedia page available for this character."
-
-    if use_character_question_hint:
-        character_question_hint = textwrap.dedent(
-            """
-            If the question is simply a character, answer yes/no depending on whether the character is correct.
-
-            Example:
-            character: Darth Vader
-            question: Darth Vader
-            → yes
-
-            character: Darth Vader
-            question: Luke Skywalker
-            → no
-        """
-        ).strip()
-    else:
-        character_question_hint = ""
-
-    return (
-        PROMPT_TEMPLATE.replace("{{character}}", character)
-        .replace("{{question}}", question)
-        .replace("{{wikipedia_page}}", wikipedia_page)
-        .replace("{{character_question_hint}}", character_question_hint)
-    )
 
 
 @timeout(10)
