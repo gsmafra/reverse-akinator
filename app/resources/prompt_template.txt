@@ -52,6 +52,8 @@ character: Darth Vader
 question: Father
 → yes
 
+{{character_question_hint}}
+
 !!!!!!!!!!!!!!!!!!!! IMPORTANT !!!!!!!!!!!!!!!!!!!!
 Now answer for:
 

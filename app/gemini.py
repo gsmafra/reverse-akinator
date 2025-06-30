@@ -1,4 +1,5 @@
 import concurrent.futures
+import textwrap
 from functools import wraps
 import random
 
@@ -75,16 +76,34 @@ def get_gemini_answer(character, question):
     pipeline_name, pipeline_config = _choose_pipeline()
     use_wikipedia = pipeline_config.get("use_wikipedia", False)
     model_name = pipeline_config.get("model", "gemini-2.0-flash")
+    use_character_question_hint = pipeline_config.get("use_character_question_hint", "")
 
     if use_wikipedia:
         wikipedia_page = get_wikipedia_article(character)
     else:
         wikipedia_page = "No Wikipedia page available for this character."
 
+    if use_character_question_hint:
+        character_question_hint = textwrap.dedent("""
+            If the question is simply a character, answer yes/no depending on whether the character is correct.
+
+            Example:
+            character: Darth Vader
+            question: Darth Vader
+            → yes
+
+            character: Darth Vader
+            question: Luke Skywalker
+            → no
+        """).strip()
+    else:
+        character_question_hint = ""
+
     prompt = (
         PROMPT_TEMPLATE.replace("{{character}}", character)
         .replace("{{question}}", question)
         .replace("{{wikipedia_page}}", wikipedia_page)
+        .replace("{{character_question_hint}}", character_question_hint)
     )
     response = models[model_name].generate_content(
         contents=prompt,
