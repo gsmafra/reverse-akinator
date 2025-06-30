@@ -27,7 +27,7 @@ def main():
 
     for i in tqdm(range(0, total_docs, BATCH_SIZE), desc="Deleting old documents in batches"):
         batch = db.batch()
-        batch_docs = docs[i:i + BATCH_SIZE]
+        batch_docs = docs[i : i + BATCH_SIZE]
         for doc in batch_docs:
             batch.delete(doc.reference)
         batch.commit()

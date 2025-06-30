@@ -20,9 +20,7 @@ def search_for_image_in_google(query):
               Each dictionary typically contains keys like 'url', 'height', 'width', 'title', etc.
               Returns an empty list if no results are found or if there's an API error.
     """
-    gis = GoogleImagesSearch(
-        environ["GOOGLE_SEARCH_API_KEY"], environ["GOOGLE_SEARCH_ENGINE_ID"]
-    )
+    gis = GoogleImagesSearch(environ["GOOGLE_SEARCH_API_KEY"], environ["GOOGLE_SEARCH_ENGINE_ID"])
 
     search_params = {
         "q": query,
