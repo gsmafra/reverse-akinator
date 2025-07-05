@@ -2,3 +2,4 @@ app/__pycache__
 venv
 venv-dev
 *.pyc
+*-debug.log
