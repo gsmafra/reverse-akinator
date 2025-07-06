@@ -4,18 +4,16 @@ import statsmodels.api as sm
 from app.llm.pipelines import PIPELINES
 
 
-def calculate_logistic_analytics(docs):
-    if not docs:
-        return []
-
-    # Use parameters from PIPELINES definitions
+def get_param_lists():
     param_set = set()
     for pipeline in PIPELINES.values():
         param_set.update(pipeline.keys())
     param_set.discard("probability")
     param_list = sorted(param_set)
+    return param_list
 
-    # Determine which params are categorical (string) and collect all possible values
+
+def get_categorical_params(param_list):
     categorical_params = {}
     for p in param_list:
         values = set()
@@ -25,28 +23,43 @@ def calculate_logistic_analytics(docs):
                 values.add(v)
         if values:
             categorical_params[p] = sorted(values)
+    return categorical_params
 
-    # Build X and y with smart OHE for categorical, numeric as-is
-    X = []
-    y = []
+
+def get_feature_names(param_list, categorical_params):
     feature_names = []
-    ohe_map = {}  # param -> list of (val, col_name)
     for p in param_list:
         if p in categorical_params:
             values = categorical_params[p]
             if len(values) == 2:
-                # Only one boolean column needed
                 val1, val2 = values
                 feature_names.append(f"{p}={val2}")
+            else:
+                for val in values[1:]:
+                    feature_names.append(f"{p}={val}")
+        else:
+            feature_names.append(p)
+    return feature_names
+
+
+def get_ohe_map(param_list, categorical_params):
+    ohe_map = {}
+    for p in param_list:
+        if p in categorical_params:
+            values = categorical_params[p]
+            if len(values) == 2:
+                val1, val2 = values
                 ohe_map[p] = [(val2, f"{p}={val2}")]
             else:
                 ohe_map[p] = []
-                for val in values[1:]:  # drop first for reference
-                    feature_names.append(f"{p}={val}")
+                for val in values[1:]:
                     ohe_map[p].append((val, f"{p}={val}"))
-        else:
-            feature_names.append(p)
+    return ohe_map
 
+
+def build_X_y(docs, param_list, categorical_params, ohe_map):
+    X = []
+    y = []
     for d in docs:
         pipeline_id = d.get("pipeline_id", d.get("pipeline_name", "unknown"))
         pipeline_params = PIPELINES.get(pipeline_id, {})
@@ -66,6 +79,17 @@ def calculate_logistic_analytics(docs):
                 row.append(float(v))
         X.append(row)
         y.append(int(d.get("thumbs_down", False)))
+    return X, y
+
+
+def calculate_logistic_analytics(docs):
+    if not docs:
+        return []
+    param_list = get_param_lists()
+    categorical_params = get_categorical_params(param_list)
+    feature_names = get_feature_names(param_list, categorical_params)
+    ohe_map = get_ohe_map(param_list, categorical_params)
+    X, y = build_X_y(docs, param_list, categorical_params, ohe_map)
     if not X or not y:
         return []
     X = np.array(X)
@@ -74,17 +98,11 @@ def calculate_logistic_analytics(docs):
     X = sm.add_constant(X)
     param_names = ["Intercept"] + feature_names
 
-    import math
-
-    try:
-        model = sm.Logit(y, X)
-        result = model.fit(disp=0)
-        effects = result.params
-        conf = result.conf_int(alpha=0.05)
-        pvalues = result.pvalues
-    except Exception:
-        print("Logistic regression failed, returning empty analytics.")
-        return []
+    model = sm.Logit(y, X)
+    result = model.fit(disp=0)
+    effects = result.params
+    conf = result.conf_int(alpha=0.05)
+    pvalues = result.pvalues
 
     analytics = []
     for i, name in enumerate(param_names):
