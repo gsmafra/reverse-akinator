@@ -84,14 +84,14 @@ def build_X_y(docs, param_list, categorical_params, ohe_map):
 
 def calculate_logistic_analytics(docs):
     if not docs:
-        return []
+        return {"baseline_td_rate": None, "intercept": None, "effects": []}
     param_list = get_param_lists()
     categorical_params = get_categorical_params(param_list)
     feature_names = get_feature_names(param_list, categorical_params)
     ohe_map = get_ohe_map(param_list, categorical_params)
     X, y = build_X_y(docs, param_list, categorical_params, ohe_map)
     if not X or not y:
-        return []
+        return {"baseline_td_rate": None, "intercept": None, "effects": []}
     X = np.array(X)
     y = np.array(y)
     # Add intercept
@@ -104,15 +104,31 @@ def calculate_logistic_analytics(docs):
     conf = result.conf_int(alpha=0.05)
     pvalues = result.pvalues
 
-    analytics = []
+    intercept = float(effects[0])
+    baseline_td_rate = 1 / (1 + np.exp(-intercept))
+
+    effect_list = []
     for i, name in enumerate(param_names):
-        analytics.append(
+        if name == "Intercept":
+            continue  # handled separately
+        # Non-log effect: change in TD rate if this parameter is set to 1
+        td_rate_with_param = 1 / (1 + np.exp(-(intercept + float(effects[i]))))
+        delta_td_rate = td_rate_with_param - baseline_td_rate
+        # Delta TD 95% CI: transform logit CI to probability CI
+        td_rate_ci_low = 1 / (1 + np.exp(-(intercept + float(conf[i, 0]))))
+        td_rate_ci_high = 1 / (1 + np.exp(-(intercept + float(conf[i, 1]))))
+        delta_td_rate_ci_low = td_rate_ci_low - baseline_td_rate
+        delta_td_rate_ci_high = td_rate_ci_high - baseline_td_rate
+        effect_list.append(
             {
                 "parameter": name,
                 "effect": float(effects[i]),
                 "ci_low": float(conf[i, 0]),
                 "ci_high": float(conf[i, 1]),
                 "p_value": float(pvalues[i]),
+                "delta_td_rate": delta_td_rate,
+                "delta_td_rate_ci_low": delta_td_rate_ci_low,
+                "delta_td_rate_ci_high": delta_td_rate_ci_high,
             }
         )
-    return analytics
+    return {"baseline_td_rate": baseline_td_rate, "intercept": intercept, "effects": effect_list}

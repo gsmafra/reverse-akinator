@@ -16,6 +16,7 @@ async function fetchData(url) {
 }
 
 const tableBody = document.getElementById('logistic-analytics-table-body');
+const baselineTdRateSpan = document.getElementById('baseline-td-rate');
 
 function createConfidenceIntervalCell(ciLow, ciHigh) {
     // Display as [low, high] with 2 decimals
@@ -24,18 +25,35 @@ function createConfidenceIntervalCell(ciLow, ciHigh) {
     return td;
 }
 
+function logitToProb(logit) {
+    return 1 / (1 + Math.exp(-logit));
+}
+
 async function populateLogisticAnalyticsTable() {
-    const analytics = await fetchData(LOGISTIC_ANALYTICS_ENDPOINT);
+    const result = await fetchData(LOGISTIC_ANALYTICS_ENDPOINT);
+    // result should have: baseline_td_rate, effects (array)
+    const effects = result.effects;
+    const baselineTdRate = result.baseline_td_rate;
     tableBody.innerHTML = '';
+    if (baselineTdRateSpan) {
+        baselineTdRateSpan.textContent = (baselineTdRate * 100).toFixed(1) + '%';
+    }
 
     // Sort by effect size descending
-    analytics.sort((a, b) => Math.abs(b.effect) - Math.abs(a.effect));
+    effects.sort((a, b) => Math.abs(b.effect) - Math.abs(a.effect));
 
-    analytics.forEach(item => {
+    effects.forEach(item => {
         const row = tableBody.insertRow();
         row.appendChild(createTableCell(item.parameter));
         row.appendChild(createTableCell(item.effect.toFixed(3)));
         row.appendChild(createConfidenceIntervalCell(item.ci_low, item.ci_high));
+        row.appendChild(createTableCell((item.delta_td_rate * 100).toFixed(1) + '%'));
+        // Show CI for delta_td_rate
+        if (item.delta_td_rate_ci_low !== undefined && item.delta_td_rate_ci_high !== undefined) {
+            row.appendChild(createConfidenceIntervalCell(item.delta_td_rate_ci_low * 100, item.delta_td_rate_ci_high * 100));
+        } else {
+            row.appendChild(createTableCell(''));
+        }
         row.appendChild(createTableCell(item.p_value.toExponential(2)));
     });
 }
