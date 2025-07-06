@@ -1,4 +1,4 @@
-const ANALYTICS_ENDPOINT = '/analytics_data';
+const ANALYTICS_ENDPOINT = '/monolithic_analytics_data';
 
 function createTableCell(textContent) {
     const cell = document.createElement('td');

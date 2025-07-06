@@ -1,6 +1,6 @@
 import math
 
-from app.services.analytics import compute_monolithic_analytics
+from app.analytics.monolithic import compute_monolithic_analytics
 
 
 def test_compute_pipeline_analytics_basic():
