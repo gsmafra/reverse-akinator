@@ -1,7 +1,7 @@
 from app.db_access.served_answers import get_all_served_answers
 
 
-def compute_pipeline_analytics(docs):
+def compute_monolithic_analytics(docs):
     pipeline_stats = {}
     for data in docs:
         pipeline = data.get("pipeline_id", data.get("pipeline_name", "unknown"))
@@ -41,6 +41,6 @@ def compute_pipeline_analytics(docs):
     return analytics
 
 
-def get_pipeline_analytics(db):
+def get_monolithic_analytics(db):
     docs = get_all_served_answers(db)
-    return compute_pipeline_analytics(docs)
+    return compute_monolithic_analytics(docs)

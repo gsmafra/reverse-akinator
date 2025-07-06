@@ -1,6 +1,6 @@
 import math
 
-from app.services.analytics import compute_pipeline_analytics
+from app.services.analytics import compute_monolithic_analytics
 
 
 def test_compute_pipeline_analytics_basic():
@@ -11,7 +11,7 @@ def test_compute_pipeline_analytics_basic():
         {"pipeline_id": "B", "thumbs_down": False},
         {"pipeline_id": "B", "thumbs_down": False},
     ]
-    analytics = compute_pipeline_analytics(docs)
+    analytics = compute_monolithic_analytics(docs)
     # Convert to dict for easy lookup
     result = {a["pipeline_name"]: a for a in analytics}
 
@@ -34,5 +34,5 @@ def test_compute_pipeline_analytics_basic():
 
 def test_compute_pipeline_analytics_empty():
     docs = []
-    analytics = compute_pipeline_analytics(docs)
+    analytics = compute_monolithic_analytics(docs)
     assert not analytics
