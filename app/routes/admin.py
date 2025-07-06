@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, jsonify, request, current_app
 
 from app.services.answer import get_answers_to_rectify, rectify_answer_service
-from app.services.analytics import get_pipeline_analytics
+from app.services.analytics import get_monolithic_analytics
 
 admin_bp = Blueprint("admin", __name__)
 
@@ -11,9 +11,9 @@ def ping():
     return jsonify({"message": "pong"})
 
 
-@admin_bp.route("/analytics")
-def analytics():
-    return render_template("analytics.html")
+@admin_bp.route("/analytics/monolithic")
+def analytics_monolithic():
+    return render_template("analytics/monolithic.html")
 
 
 @admin_bp.route("/rectify")
@@ -40,7 +40,7 @@ def rectify_answer():
 
 
 @admin_bp.route("/analytics_data")
-def analytics_data():
+def analytics_monolithic_data():
     db = current_app.db
-    pipeline_analytics = get_pipeline_analytics(db)
-    return jsonify(pipeline_analytics)
+    monolithic_analytics = get_monolithic_analytics(db)
+    return jsonify(monolithic_analytics)
