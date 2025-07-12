@@ -1,4 +1,4 @@
-from app.analytics.logistic import calculate_logistic_analytics
+from app.analytics.logistic import calculate_logistic_analytics, PIPELINES
 
 
 def test_logistic_basic_binary():
@@ -17,10 +17,9 @@ def test_logistic_basic_binary():
         {"pipeline_id": "C", "thumbs_down": True},
         {"pipeline_id": "C", "thumbs_down": False},
     ]
-    from app.analytics import logistic
 
-    logistic.PIPELINES.clear()
-    logistic.PIPELINES.update(
+    PIPELINES.clear()
+    PIPELINES.update(
         {
             "A": {"model": "m1", "use_wikipedia": True},
             "B": {"model": "m2", "use_wikipedia": False},
@@ -28,11 +27,12 @@ def test_logistic_basic_binary():
         }
     )
     analytics = calculate_logistic_analytics(docs)
-    param_names = [a["parameter"] for a in analytics]
-    assert "Intercept" in param_names
+    effects = analytics["effects"]
+    param_names = [a["parameter"] for a in effects]
+    assert "intercept" in analytics
     assert "model=m2" in param_names
     assert "use_wikipedia" in param_names
-    for a in analytics:
+    for a in effects:
         assert isinstance(a["effect"], float)
         assert isinstance(a["p_value"], float)
 
@@ -48,10 +48,9 @@ def test_logistic_multiclass_ohe():
         {"pipeline_id": "C", "thumbs_down": False},
         {"pipeline_id": "C", "thumbs_down": False},
     ]
-    from app.analytics import logistic
 
-    logistic.PIPELINES.clear()
-    logistic.PIPELINES.update(
+    PIPELINES.clear()
+    PIPELINES.update(
         {
             "A": {"model": "m1"},
             "B": {"model": "m2"},
@@ -59,7 +58,9 @@ def test_logistic_multiclass_ohe():
         }
     )
     analytics = calculate_logistic_analytics(docs)
-    param_names = [a["parameter"] for a in analytics]
+    effects = analytics["effects"]
+    param_names = [a["parameter"] for a in effects]
+    assert "intercept" in analytics
     assert "model=m2" in param_names
     assert "model=m3" in param_names
     assert "model=m1" not in param_names
@@ -67,4 +68,5 @@ def test_logistic_multiclass_ohe():
 
 def test_logistic_empty():
     analytics = calculate_logistic_analytics([])
-    assert analytics == []
+    assert set(analytics.keys()) == {"baseline_td_rate", "intercept", "effects"}
+    assert analytics["effects"] == []
