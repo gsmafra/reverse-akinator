@@ -6,16 +6,27 @@
     <link rel="stylesheet" href="/static/css/analytics/monolithic.css">
     <link rel="stylesheet" href="/static/css/styles.css">
     <link rel="stylesheet" href="/static/css/dark_mode_button.css">
+    <style>
+        #baseline-container {
+            margin-bottom: 1.5em;
+        }
+    </style>
 </head>
 <body>
     <button id="dark-mode-toggle">Toggle Dark Mode</button>
     <h1>Logistic Regression Analytics</h1>
+    <div id="baseline-container">
+        <strong>Baseline Thumbs Down Rate (Intercept):</strong>
+        <span id="baseline-td-rate">Loading...</span>
+    </div>
     <table>
         <thead>
             <tr>
                 <th>Parameter</th>
                 <th>Effect (Log Odds)</th>
-                <th>95% CI</th>
+                <th>95% CI (Log Odds)</th>
+                <th>Effect (Δ TD Rate)</th>
+                <th>Δ TD 95% CI</th>
                 <th>p-value</th>
             </tr>
         </thead>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Themed Mode - Yes/No Question</title>
+    <link rel="icon" type="image/x-icon" href="/static/icons/favicon.ico">
+    <link rel="manifest" href="/static/manifest.json">
+    <link rel="stylesheet" href="static/css/loading.css">
+    <link rel="stylesheet" href="static/css/reveal.css">
+    <link rel="stylesheet" href="static/css/sidebar.css">
+    <link rel="stylesheet" href="static/css/styles.css">
+    <link rel="stylesheet" href="static/css/dark_mode_button.css">
+    <link rel="stylesheet" href="static/css/question_input.css">
+    <link rel="stylesheet" href="static/css/answer_container.css">
+    <link rel="stylesheet" href="static/css/main_title.css">
+    <link rel="stylesheet" href="static/css/ask.css">
+</head>
+<body>
+    <button id="dark-mode-toggle">Toggle Dark Mode</button>
+    <h1 id="main-title">Themed Mode: Pick a Category</h1>
+    <div class="input-button-container" id="theme-select-container">
+        <input type="text" id="theme-input" placeholder="Type a category (e.g. scientists, athletes, etc.)...">
+        <button id="theme-select-button">Start Themed Game</button>
+    </div>
+    <div id="themed-game-container" style="display:none;">
+        <h2 id="theme-title"></h2>
+        <div class="input-button-container">
+            <input type="text" id="question-input" placeholder="Enter your question...">
+            <button id="ask-button">Ask!</button>
+        </div>
+        <div id="answer-container">Answer will appear here.</div>
+        <button id="reveal-button">Reveal Character</button>
+        <div id="image-container"></div>
+        <div id="revealed-character"></div>
+        <button id="reset-button">Reset</button>
+        <div class="sidebar" id="session-history">
+            <h2>Session History</h2>
+            <ul id="session-history-list">
+            <!-- Session history will be populated here -->
+            </ul>
+        </div>
+    </div>
+    <script type="module" src="static/js/device_id.js"></script>
+    <script type="module" src="static/js/theme_select.js"></script>
+    <script type="module" src="static/js/reset.js"></script>
+    <script type="module" src="static/js/reveal.js"></script>
+    <script type="module" src="static/js/session_history.js"></script>
+    <script type="module" src="static/js/submit.js"></script>
+    <script src="static/js/dark_mode.js"></script>
+</body>
+</html>

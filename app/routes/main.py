@@ -14,6 +14,11 @@ def index():
     return render_template("index.html")
 
 
+@main_bp.route("/themed")
+def themed():
+    return render_template("themed.html")
+
+
 @main_bp.route("/reset", methods=["POST"])
 def reset_character():
     db = current_app.db
