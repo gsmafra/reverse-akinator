@@ -54,7 +54,10 @@ async function populateLogisticAnalyticsTable() {
         } else {
             row.appendChild(createTableCell(''));
         }
-        row.appendChild(createTableCell(item.p_value.toExponential(2)));
+        // Format p-value as decimals (up to 4 decimals, or <0.0001)
+        let pval = item.p_value;
+        let pvalStr = pval < 0.0001 ? '<0.0001' : pval.toFixed(4);
+        row.appendChild(createTableCell(pvalStr));
     });
 }
 
