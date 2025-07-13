@@ -4,7 +4,6 @@
     right: 0;
     width: 300px;
     height: 100vh; /* Default height for larger screens */
-    background-color: #f0f0f0;
     padding: 20px;
     border-left: 1px solid #ccc;
     overflow-y: auto; /* Enable vertical scrolling if content overflows */

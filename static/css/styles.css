@@ -13,7 +13,7 @@ body {
     transition: background-color 0.3s, color 0.3s;
 }
 
-.dark-mode {
+html.dark-mode body {
     background-color: #232323;
     color: #e0e0e0;
 }
