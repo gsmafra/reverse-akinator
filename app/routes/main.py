@@ -4,6 +4,7 @@ from flask import Blueprint, current_app, render_template, jsonify, request
 
 from app.resources.resources import CHARACTERS, CHARACTER_IMAGE_URLS
 from app.db_access.devices import get_character, set_character
+from app.llm.character import get_random_character_for_category
 from app.services.answer import get_or_generate_answer, thumbs_down_answer
 
 main_bp = Blueprint("main", __name__)
@@ -62,3 +63,29 @@ def thumbs_down():
 
     thumbs_down_answer(db, question, character, answer, device_id)
     return jsonify({"message": "Thumbs down added successfully"})
+
+
+@main_bp.route("/start-themed-game", methods=["POST"])
+def start_themed_game():
+    db = current_app.db
+    data = request.get_json()
+    category = data.get("category")
+    device_id = data.get("device_id")
+
+    if not category or not category.strip():
+        return jsonify({"error": "Category is required."}), 400
+    if not device_id:
+        return jsonify({"error": "Device ID is required."}), 400
+
+    character = get_random_character_for_category(db, category)
+    if not character:
+        return jsonify({"error": f"No character found for category '{category}'"}), 404
+
+    set_character(db, device_id, character)
+    return jsonify(
+        {
+            "message": f"Themed game started for category: {category}",
+            "category": category,
+            "character": character,
+        }
+    )
