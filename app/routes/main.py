@@ -1,11 +1,11 @@
-import random
-
 from flask import Blueprint, current_app, render_template, jsonify, request
 
-from app.resources.resources import CHARACTERS, CHARACTER_IMAGE_URLS
-from app.db_access.devices import get_character, set_character
-from app.llm.character import get_random_character_for_category
 from app.services.answer import get_or_generate_answer, thumbs_down_answer
+from app.services.character import (
+    start_themed_game_service,
+    start_regular_game_service,
+    reveal_character_service,
+)
 
 main_bp = Blueprint("main", __name__)
 
@@ -21,14 +21,14 @@ def themed():
 
 
 @main_bp.route("/reset", methods=["POST"])
-def reset_character():
+def start_regular_game():
     db = current_app.db
     data = request.get_json()
     device_id = data.get("device_id")
-    current_character = random.choice(CHARACTERS)
-    print(f"New character selected for device {device_id}: {current_character}")
-    set_character(db, device_id, current_character)
-    return jsonify({"message": "Character has been reset."})
+    result = start_regular_game_service(db, device_id)
+    if "error" in result:
+        return jsonify({"error": result["error"]}), 400
+    return jsonify(result)
 
 
 @main_bp.route("/ask", methods=["GET"])
@@ -43,13 +43,10 @@ def ask():
 def reveal_character():
     db = current_app.db
     device_id = request.args.get("device_id")
-    current_character = get_character(db, device_id)
-    return jsonify(
-        {
-            "character": current_character,
-            "image_url": CHARACTER_IMAGE_URLS[current_character],
-        }
-    )
+    result = reveal_character_service(db, device_id)
+    if "error" in result:
+        return jsonify({"error": result["error"]}), 400
+    return jsonify(result)
 
 
 @main_bp.route("/thumbs_down", methods=["POST"])
@@ -72,20 +69,7 @@ def start_themed_game():
     category = data.get("category")
     device_id = data.get("device_id")
 
-    if not category or not category.strip():
-        return jsonify({"error": "Category is required."}), 400
-    if not device_id:
-        return jsonify({"error": "Device ID is required."}), 400
-
-    character = get_random_character_for_category(db, category)
-    if not character:
-        return jsonify({"error": f"No character found for category '{category}'"}), 404
-
-    set_character(db, device_id, character)
-    return jsonify(
-        {
-            "message": f"Themed game started for category: {category}",
-            "category": category,
-            "character": character,
-        }
-    )
+    result = start_themed_game_service(db, device_id, category)
+    if "error" in result:
+        return jsonify({"error": result["error"]}), 400
+    return jsonify(result)
