@@ -1,3 +1,5 @@
+import random
+
 import google.generativeai as genai
 
 from app.llm.gemini import models, timeout
@@ -6,31 +8,33 @@ from app.llm.gemini import models, timeout
 @timeout(10)
 def get_random_character_for_category(db, category):
     """
-    Use Gemini to generate a random character name for the given category.
+    Use Gemini to generate a list of 50 famous characters/people for the given category, then pick one at random.
     Returns the character name as a string, or None if not found.
     """
-    prompt = f"Give me the name of a famous {category} character or person. Only return the name."
-    # Use a default model for this simple generation
+    prompt = (
+        f"List 50 different famous {category} characters or people. "
+        "Return only a comma-separated list of names, no numbers or explanations."
+    )
     model_name = "gemini-2.0-flash"
     response = models[model_name].generate_content(
         contents=prompt,
         generation_config=genai.types.GenerationConfig(
-            max_output_tokens=16,
-            temperature=1.0,
+            max_output_tokens=256,
+            temperature=1.2,
             top_p=1,
-            top_k=1,
+            top_k=40,
         ),
         stream=False,
     )
-    # Try to extract the name from the response
+    # Try to extract the list from the response
     if hasattr(response, "text"):
-        name = response.text.strip()
+        names_text = response.text.strip()
     elif hasattr(response, "candidates") and response.candidates:
-        name = response.candidates[0].content.parts[0].text.strip()
+        names_text = response.candidates[0].content.parts[0].text.strip()
     else:
         return None
-    # Remove any extra explanations or punctuation
-    name = name.split("\n")[0].strip().strip(".").strip('"')
-    if not name:
+    # Split and clean names
+    names = [n.strip().strip('.') for n in names_text.split(',') if n.strip()]
+    if not names:
         return None
-    return name
+    return random.choice(names)
