@@ -79,6 +79,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const themedResetButton = document.getElementById('themed-reset-button');
     if (themedResetButton) {
+        themedResetButton.style.display = 'none'; // Hide reset button initially
         themedResetButton.addEventListener('click', () => {
             const theme = window.selectedTheme;
             const deviceId = getDeviceId();
@@ -104,13 +105,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert(data.error || 'Failed to reset themed game.');
                     return;
                 }
-                // Optionally update UI with new character, or reload
                 window.location.reload();
             })
             .catch(error => {
                 console.error('Error resetting themed game:', error);
                 alert('Server error. Try again.');
             });
+        });
+    }
+
+    // Show reset button only after character is revealed
+    const revealButton = document.getElementById('reveal-button');
+    if (revealButton && themedResetButton) {
+        revealButton.addEventListener('click', () => {
+            themedResetButton.style.display = '';
         });
     }
 });
