@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>
+    (function () {
+        const hour = new Date().getHours();
+        if (hour >= 19 || hour < 6) {
+        document.documentElement.classList.add('dark-mode');
+        }
+    })();
+    </script>
     <meta charset="UTF-8">
     <title>Rectify Answers</title>
     <link rel="stylesheet" href="static/css/rectify.css">
