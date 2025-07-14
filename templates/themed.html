@@ -14,24 +14,20 @@
     <title>Themed Mode - Yes/No Question</title>
     <link rel="icon" type="image/x-icon" href="/static/icons/favicon.ico">
     <link rel="manifest" href="/static/manifest.json">
-    <link rel="stylesheet" href="static/css/loading.css">
-    <link rel="stylesheet" href="static/css/reveal.css">
-    <link rel="stylesheet" href="static/css/sidebar.css">
-    <link rel="stylesheet" href="static/css/styles.css">
-    <link rel="stylesheet" href="static/css/dark_mode_button.css">
-    <link rel="stylesheet" href="static/css/question_input.css">
-    <link rel="stylesheet" href="static/css/answer_container.css">
-    <link rel="stylesheet" href="static/css/main_title.css">
-    <link rel="stylesheet" href="static/css/ask.css">
+    <link rel="stylesheet" href="/static/css/loading.css">
+    <link rel="stylesheet" href="/static/css/reveal.css">
+    <link rel="stylesheet" href="/static/css/sidebar.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link rel="stylesheet" href="/static/css/dark_mode_button.css">
+    <link rel="stylesheet" href="/static/css/question_input.css">
+    <link rel="stylesheet" href="/static/css/answer_container.css">
+    <link rel="stylesheet" href="/static/css/main_title.css">
+    <link rel="stylesheet" href="/static/css/ask.css">
 </head>
 <body>
     <button id="dark-mode-toggle">Toggle Dark Mode</button>
-    <h1 id="main-title">Themed Mode: Pick a Category</h1>
-    <div class="input-button-container" id="theme-select-container">
-        <input type="text" id="theme-input" placeholder="Type a category (e.g. scientists, athletes, etc.)...">
-        <button id="theme-select-button">Start Themed Game</button>
-    </div>
-    <div id="themed-game-container" style="display:none;">
+    <h1 id="main-title">Themed Mode</h1>
+    <div id="themed-game-container">
         <h2 id="theme-title"></h2>
         <div class="input-button-container">
             <input type="text" id="question-input" placeholder="Enter your question...">
@@ -49,11 +45,11 @@
             </ul>
         </div>
     </div>
-    <script type="module" src="static/js/device_id.js"></script>
-    <script type="module" src="static/js/theme_select.js"></script>
-    <script type="module" src="static/js/reveal.js"></script>
-    <script type="module" src="static/js/session_history.js"></script>
-    <script type="module" src="static/js/submit.js"></script>
-    <script type="module" src="static/js/dark_mode.js"></script>
+    <script type="module" src="/static/js/device_id.js"></script>
+    <script type="module" src="/static/js/themed_game.js"></script>
+    <script type="module" src="/static/js/reveal.js"></script>
+    <script type="module" src="/static/js/session_history.js"></script>
+    <script type="module" src="/static/js/submit.js"></script>
+    <script type="module" src="/static/js/dark_mode.js"></script>
 </body>
 </html>

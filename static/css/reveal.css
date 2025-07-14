@@ -40,6 +40,20 @@
     display: none;
 }
 
+#themed-reset-button {
+    background-color: #00690577;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: none;
+}
+
+.character-revealed #themed-reset-button {
+    display: block;
+}
+
 /* Media query for mobile devices */
 @media (max-width: 768px) {
     .revealed-image {
