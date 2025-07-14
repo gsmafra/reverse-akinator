@@ -15,9 +15,15 @@ def index():
     return render_template("index.html")
 
 
-@main_bp.route("/themed")
-def themed():
-    return render_template("themed.html")
+@main_bp.route("/select-theme")
+def select_theme():
+    return render_template("select-theme.html")
+
+
+@main_bp.route("/themed/<category>")
+def themed_category(category):
+    # Pass the category to the template for JS to pick up
+    return render_template("themed.html", category=category)
 
 
 @main_bp.route("/reset", methods=["POST"])
