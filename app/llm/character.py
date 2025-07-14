@@ -34,7 +34,7 @@ def get_random_character_for_category(db, category):
     else:
         return None
     # Split and clean names
-    names = [n.strip().strip('.') for n in names_text.split(',') if n.strip()]
+    names = [n.strip().strip(".") for n in names_text.split(",") if n.strip()]
     if not names:
         return None
     return random.choice(names)
